@@ -1,15 +1,15 @@
 # ![logo](logo.png)
 A powerfull intuitive interface that allows anyone to create Machine Learning models!
 
-![scene view](sc1.png)
+![scene view](sc1.png =250x)
 
 The concept of AI-Blocs is to have a simple scene with draggable objects that have scripts attached to them. The models can be exported to a standalone script that runs on Tensorflow. 
 
-![script view](sc2.png)
+![script view](sc2.png =250x)
 
 Variables are parsed from python scripts can be edited from the AI-Blocs properties panel.
 
-![script view](sc3.png)
+![script view](sc3.png =250x)
 
 ### Download
 
