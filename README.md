@@ -1,6 +1,7 @@
 # ![AI-Blocks](logo.png)
 A powerfull and intuitive interface that allows anyone to create Machine Learning models!
 
+<img src="https://raw.githubusercontent.com/MrNothing/AI-Blocks/master/sc1.png" width="300">
 ![scene view](sc1.png)
 
 The concept of AI-Blocs is to have a simple scene with draggable objects that have scripts attached to them. The models can be exported to a standalone script that runs on Tensorflow. 
