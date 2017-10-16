@@ -1,5 +1,5 @@
 # ![AI-Blocks](logo.png)
-A powerfull intuitive interface that allows anyone to create Machine Learning models!
+A powerfull and intuitive interface that allows anyone to create Machine Learning models!
 
 ![scene view](sc1.png)
 
