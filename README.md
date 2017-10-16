@@ -7,13 +7,13 @@ The concept of AI-Blocs is to have a simple scene with draggable objects that ha
 
 ![script view](sc2.png)
 
-Variables are parsed from python scripts can be edited from the AI-Blocs properties panel.
+Variables are parsed from python scripts and can be edited from the AI-Blocs properties panel.
 
 ![script view](sc3.png)
 
 ### Download
 
-All releases can be *here: * https://github.com/MrNothing/AI-Blocks/releases/
+All releases can be found here: https://github.com/MrNothing/AI-Blocks/releases/
 
 ### License
 
