@@ -11,4 +11,10 @@ Variables are parsed from python scripts can be edited from the AI-Blocs propert
 
 ![script view](sc3.png)
 
+### Download
+
+The Beta can be downloaded *here* 
+
+### License
+
 The program is distributed under the following license: https://creativecommons.org/licenses/by-nc/3.0/
