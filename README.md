@@ -1,4 +1,4 @@
-# ![logo](logo.png) AI-Blocks
+# ![logo](logo.png)
 A powerfull intuitive interface that allows anyone to create Machine Learning models!
 
 ![scene view](sc1.png)
