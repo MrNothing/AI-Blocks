@@ -13,7 +13,7 @@ Variables are parsed from python scripts can be edited from the AI-Blocs propert
 
 ### Download
 
-The Beta can be downloaded *here* 
+The Beta can be downloaded *here: * https://github.com/MrNothing/AI-Blocks/releases/tag/v1.0-beta.1 
 
 ### License
 
