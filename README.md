@@ -3,7 +3,7 @@ A powerfull and intuitive interface that allows anyone to create Machine Learnin
 
 <img src="https://raw.githubusercontent.com/MrNothing/AI-Blocks/master/sc4.png" width="700">
 
-The concept of AI-Blocs is to have a simple scene with draggable objects that have scripts attached to them. The models can be exported to a standalone script that runs on Tensorflow. 
+The concept of AI-Blocs is to have a simple scene with draggable objects that have scripts attached to them. The model can be run directly on the editor or exported to a standalone script that runs on Tensorflow. 
 
 <img src="https://raw.githubusercontent.com/MrNothing/AI-Blocks/master/sc2.png" width="500">
 
