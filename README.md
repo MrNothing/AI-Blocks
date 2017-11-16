@@ -11,6 +11,11 @@ Variables are parsed from python scripts and can be edited from the AI-Blocs pro
 
 <img src="https://raw.githubusercontent.com/MrNothing/AI-Blocks/master/sc3.png" width="500">
 
+### Install
+
+The project requires python (https://www.python.org/) and tensorflow (https://www.tensorflow.org/) to run projects. You can still create and edit projects without these dependencies.
+To run AI-Blocs, download the project archive and launch AI-Blocs.exe
+
 ### Download
 
 All releases can be found here: https://github.com/MrNothing/AI-Blocks/releases/
