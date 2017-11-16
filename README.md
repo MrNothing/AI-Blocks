@@ -1,7 +1,7 @@
 # ![AI-Blocks](logo.png)
 A powerfull and intuitive WYSIWYG interface that allows anyone to create Machine Learning models!
 
-<img src="https://raw.githubusercontent.com/MrNothing/AI-Blocks/master/sc1.png" width="500">
+<img src="https://raw.githubusercontent.com/MrNothing/AI-Blocks/master/sc5.png" width="500">
 
 The concept of AI-Blocs is to have a simple scene with draggable objects that have scripts attached to them. The model can be run directly on the editor or be exported to a standalone script that runs on Tensorflow. 
 
