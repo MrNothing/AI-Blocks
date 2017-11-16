@@ -15,7 +15,9 @@ Variables are parsed from python scripts and can be edited from the AI-Blocs pro
 
 The project requires python (https://www.python.org/) and tensorflow (https://www.tensorflow.org/) to run projects. You can still create and edit projects without these dependencies.
 To run AI-Blocs, download the project archive and launch AI-Blocs.exe.
+
 <img src="https://raw.githubusercontent.com/MrNothing/AI-Blocks/master/sc6.png">
+
 To run your model simply press the "Play" button and let the magic happen! 
 
 ### Download
