@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="UTF-8">
+	<title id="title">AI-Blocs</title> 
+	<script>window.$ = window.jQuery = require('jquery');</script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="./Css/extra.css">
+	<link rel="stylesheet" href="./Css/react-treeview.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+		require('babel-register');
+
+		window.scene = null;
+
+		require('./core');
+	</script>
+  </head>
+  <body id="body">
+  	<br/>
+  	<div class="container-fluid global_container">
+		<div class="row container-fluid">
+			<div class="row">
+			    <div class="col-sm-5" id="menu">
+			  		
+			  	</div>	
+				<div class="col-sm-5" id="running_items">
+			        
+			    </div>
+			    <div class="col-sm-2">
+			    	<h5 class="text-right"><img src="images/PortableBoxAlpha2.png" width="45px">AI-Blocks</img><small> v1.0b</small></h5>
+			    </div>
+			</div>
+		</div>
+  		<div class="row container-fluid body_container" id="scene"></div>
+	</div>
+	<div id="footer"></div>
+  	<div id="popups"></div>
+  </body>
+</html>
+

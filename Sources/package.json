@@ -1,0 +1,38 @@
+{
+  "name": "aiblocs",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/main.js",
+  "dependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-register": "^6.3.13",
+    "chart.js": "^2.7.0",
+    "express-open-in-editor": "^3.1.1",
+    "jquery": "^3.2.1",
+    "load-json-file": "^3.0.0",
+    "open": "0.0.5",
+    "open-in-editor": "^2.2.0",
+    "react": "^16.0.0",
+    "react-bootstrap-treeview": "^0.1.0",
+    "react-dom": "^16.0.0",
+    "react-scripts": "1.0.14",
+    "react-treebeard": "^2.0.3",
+    "react-treeview": "^0.4.7",
+    "treeview-react-bootstrap": "^0.4.6",
+    "webpack-target-electron-renderer": "^0.4.0"
+  },
+  "scripts": {
+    "run": "electron -r babel-register .",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "presets": [
+    "env"
+  ],
+  "devDependencies": {
+    "electron-packager": "^9.1.0"
+  }
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="UTF-8">
+	<title>AI-Blocs - Empty Project</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+		require('babel-register');
+		require('./core');
+	</script>
+  </head>
+  <body>
+
+  	<div class="container-fluid">
+	  	<div class="pull-left">
+	 		<button type="button" class="btn btn-default btn-sm">
+	  			<span class="glyphicon glyphicon-plus"></span> New Project
+			</button>
+			<button type="button" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-folder-open"></span>
+			</button>
+			<button type="button" class="btn btn-default btn-sm" disabled>
+			<span class="glyphicon glyphicon-floppy-disk"></span>
+			</button>
+	  	</div>	
+			<div class="pull-right action-buttons">
+                <div class="btn-group pull-right">
+                	<button type="button" class="btn btn-default btn-sm">
+			  			<span class="glyphicon glyphicon-play"></span>
+					</button>
+					<button type="button" class="btn btn-default btn-sm" disabled>
+					<span class="glyphicon glyphicon-stop"></span>
+					</button>
+					<button type="button" class="btn btn-default btn-sm" disabled>
+					<span class="glyphicon glyphicon-pause"></span>
+					</button>
+                </div>
+            </div>
+	  </div>
+   
+	<div class="container-fluid">
+	  <div class="row">
+	    <div class="col-sm-9">
+		    <ul class="nav nav-tabs">
+			  <li class="active"><a href="#">Scene 1</a></li>
+			  <li><a href="#">Scene 2</a></li>
+			  <li><a href="#">+</a></li>
+			</ul>
+			<div class="panel-body">
+			  	<div id="root"><script src="react-test.js"></script></div>
+			</div>
+	    </div>
+	    <div class="col-sm-3">
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			  	Properties
+					<div class="pull-right action-buttons">
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-cog" style="margin-right: 0px;"></span>
+                            </button>
+                            <ul class="dropdown-menu slidedown">
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-pencil"></span>Edit</a></li>
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-trash"></span>Delete</a></li>
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-flag"></span>Flag</a></li>
+                            </ul>
+                        </div>
+                    </div>
+			  </div>
+			  <div class="panel-body">
+			  		 <form class="form-inline">
+					  <div class="form-group">
+					    <label for="email">x:</label>
+					    <input type="email" class="form-control" id="email">
+					  </div>
+					  <div class="form-group">
+					    <label for="pwd">y:</label>
+					    <input type="password" class="form-control" id="pwd">
+					  </div>
+					</form> 
+					<div class="checkbox">
+					  <label><input type="checkbox" value="">Option 1</label>
+					</div>
+					<div class="checkbox">
+					  <label><input type="checkbox" value="">Option 2</label>
+					</div>
+					<div class="checkbox disabled">
+					  <label><input type="checkbox" value="" disabled>Option 3</label>
+					</div> 
+					<label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
+					<label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
+					<label class="checkbox-inline"><input type="checkbox" value="">Option 3</label> 
+					<label class="radio-inline"><input type="radio" name="optradio">Option 1</label>
+					<label class="radio-inline"><input type="radio" name="optradio">Option 2</label>
+					<label class="radio-inline"><input type="radio" name="optradio">Option 3</label> 
+			  </div>
+			</div>
+	    </div>
+	  </div>
+	  <div class="row">
+	  	<div class="panel panel-default">
+			<ul class="nav nav-tabs">
+			  <li class="active"><a href="#">Hierarchy</a></li>
+			  <li><a href="#">Project</a></li>
+			  <li><a href="#">Output</a></li>
+			</ul>
+			<div class="panel-body">
+			  	Panel Content
+			</div>
+		</div>
+	  </div>
+	</div>
+	<div class="progress .align-bottom" style="position: absolute;width: 100%;bottom: 0;">
+	  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">
+	    Running...
+	  </div>
+	</div> 
+
+  </body>
+</html>
+

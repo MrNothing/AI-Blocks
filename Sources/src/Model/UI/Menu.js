@@ -1,0 +1,89 @@
+import React from 'react';
+import JsonManager from '../Managers/JsonManager';
+
+export default class Menu extends React.Component {
+	constructor(props) {
+	    super(props);
+	    this.refresh = this.refresh.bind(this);
+	    window.service.menuUI = this;
+	}
+
+	openProjectClicked(){
+		let selected_dir = require('electron').remote.dialog.showOpenDialog({title:"Select an AI-Bloc Project", properties: ['openFile', 'openDirectory']});
+		if(selected_dir==null)
+		{
+			window.service.log("Failed to load project: No directory selected", "", 2);			
+		}
+		else
+		{
+			window.service.loading = {properties:null, scene:null};
+			
+			let loader = new JsonManager(null);
+			loader.load(selected_dir[0]+"/Properties.json").then(json => {
+				window.service.loading.properties = json;
+				window.service.loading.properties.projectpath = selected_dir[0];
+				window.service.checkLoadingComplete();
+			}).catch(err => {
+		   		alert("Failed to load project: "+err);
+				window.service.log("Failed to load project!", err+"", 2);	
+			});
+
+			let loader2 = new JsonManager(null);
+			loader2.load(selected_dir[0]+"/Scene.json").then(json => {
+				window.service.loading.scene = json;
+				window.service.checkLoadingComplete();
+			}).catch(err => {
+		   		alert("Failed to load project: "+err);
+				window.service.log("Failed to load project!", err+"", 2);		
+			});
+		}
+	}
+
+	refresh(){
+		this.forceUpdate();
+	}
+
+	saveProjectClicked(){
+		let saver = new JsonManager(window.service.project);
+		saver.save(window.service.project.projectpath+"/Properties.json")
+
+		let scene_saver = new JsonManager(window.service.getSceneJson());
+		scene_saver.save(window.service.project.projectpath+"/Scene.json")
+
+		window.service.log("Project saved: "+window.service.project.projectname, window.service.project.projectpath, 4);	
+	}
+
+	checkDisabled()
+	{
+		if(window.service.project==null)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	render() {
+		return (
+			<div className="input-group">
+				<button type="button" className="btn btn-default btn-sm" data-toggle="modal" data-target="#new-project-popup">
+					<span className="glyphicon glyphicon-plus"></span> New Project
+				</button>
+				<button type="button" className="btn btn-default btn-sm" onClick={this.openProjectClicked}>
+					<span className="glyphicon glyphicon-folder-open"></span>
+				</button>
+				<button type="button" className="btn btn-default btn-sm" disabled={this.checkDisabled()} onClick={this.saveProjectClicked}>
+					<span className="glyphicon glyphicon-floppy-disk"></span>
+				</button>
+				<button type="button" className="btn btn-default btn-sm" disabled={this.checkDisabled()} data-toggle="modal" data-target="#project-properties">
+					<span className="glyphicon glyphicon-cog"></span>
+				</button>
+				<button type="button" className="btn btn-default btn-sm" disabled={this.checkDisabled()} data-toggle="modal" data-target="#project-builder">
+					<i className="material-icons">build</i>
+				</button>
+			</div>
+		);
+	}
+}

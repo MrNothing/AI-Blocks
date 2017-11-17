@@ -1,0 +1,8 @@
+{
+  "projectname": ["Name", "text"],
+  "version": ["Version", "text", "0.1.0"],
+  "engine": ["Engine", "dropdown", ["Tensorflow", "AI-Blocs Engine"]],
+  "usegpu": ["GPU?", "checkbox", true],
+  "consolelines": ["Console", "integer", 100],
+  "theme": ["Theme", "dropdown", ["default", "dark"]]
+}

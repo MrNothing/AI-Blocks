@@ -1,0 +1,227 @@
+body{
+	background-image: url('../images/bg/11.jpg');
+	overflow: hidden;
+}
+
+body, html, .global_container {
+    height: 99%;
+}
+
+.body_container {
+	height: 92%;
+}
+
+.scene_container {
+    height: 63%;
+}
+
+.hierarchy_container {
+    height: 33%;
+}
+
+.progress_bottom {
+    position: absolute;
+    bottom: -13px;
+    width: 100%;
+}
+
+.list-group-item {
+    padding: 5px 15px;
+}
+
+.add-info {
+    width: 95px;
+    height: 95px;
+    color: rgb(209, 209, 209);
+	border-style: dashed;
+    border-radius: 10px;
+    border-color: #ddd;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.scene-object{
+	position: absolute;
+	width: 95px;
+    height: 95px;
+    color: #337ab7;
+    padding: 2px 5px 0px 5px;
+	border-style: solid;
+    border-radius: 10px;
+    border-color: #337ab7;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #FFF;
+	box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.13);
+    z-index: 1000
+}
+
+.previewImage
+{
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.13);
+}
+.scene-object.selected
+{
+	color:#49d8fa;
+    border-color: #49d8fa;
+}
+
+.nav>li>a {
+    padding: 3px 15px;
+}
+
+.input-group-max {
+    width: 100%;
+}
+
+.input-group-small {
+    height: 28px;
+}
+
+.input-group-addon-small {
+    width: 100px;
+}
+
+.gray-bg{
+	background-color: #f5f5f5;
+}
+
+.media-left
+{
+	padding-bottom: 10px;	
+}
+
+.media-object{
+	box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.small-modal{
+	width: 230px;
+	margin: 180px auto;
+}
+
+.bg-click
+{
+	position:absolute;
+	width: 90%;
+    height: 90%;
+}
+
+.card2 {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card2-header:first-child {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+
+.card2-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card2-header.h4 {
+	margin-top: 0px;
+}
+
+.card2-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card2-title {
+    margin-bottom: .75rem;
+}
+
+.form-control{
+	height: 100%; 
+}
+
+.log-item {
+    padding: 0px 15px;
+}
+
+.panel-body {
+    height: 100%;
+}
+
+.prop-button{
+    padding: 4.5px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.plug{
+    bottom: 6px;
+    left: 50%;
+    position: absolute;
+}
+
+.link_line{
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #337ab7;
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.link_line2{
+    border-style: solid;
+    border-radius: 0;
+    border-color: #337ab7;
+    border-left: 0;
+}
+
+.col{
+    padding-right: 7px;
+    padding-left: 7px;
+}
+
+.material-icons{
+    font-size: 11px;
+}
+
+.scrollable_container{
+    overflow-y: scroll;
+    height: 91%;
+}
+
+.toggle-prop{
+    font-size: 20px;
+    padding: 4px;
+}
+
+.insert.collapsed:before {
+  content: "\e080";
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* rotate the triangle to close it */
+.insert:before {
+  content: "\e114";
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.collapsed{
+
+}
