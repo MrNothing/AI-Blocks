@@ -1,5 +1,5 @@
 # ![AI-Blocks](logo.png)
-A powerful and intuitive WYSIWYG interface that allows anyone to create Machine Learning models!
+A powerfull and intuitive WYSIWYG interface that allows anyone to create Machine Learning models!
 
 <img src="https://raw.githubusercontent.com/MrNothing/AI-Blocks/master/ScreenShots/sc5.png" width="800">
 
