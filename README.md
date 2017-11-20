@@ -25,9 +25,6 @@ To run your model simply press the "Play" button and let the magic happen!
 
 All releases can be found here: https://github.com/MrNothing/AI-Blocks/releases/
 
-### Example Projects
-
-You can download a few example projects here: https://github.com/MrNothing/AI-Blocks/blob/master/ExampleProjects.zip?raw=true
 ### License
 
 The program is distributed under the following license: https://creativecommons.org/licenses/by-nc/3.0/
