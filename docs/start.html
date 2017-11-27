@@ -118,6 +118,20 @@
                                     <p><img src="images/sc1.png" width="600"/></p>
                                     
                                 </div><!--//section-block-->
+
+                                 <div id="objects" class="section-block"><!--section-block-->
+                                    <h6 class="section-title">Objects</h6>
+                                    <div class="section-block">
+                                        <p>The objects are the building blocks of your projects, they are shown on the scene and the hierarchy panel. They contain scripts and represent the modular pieces of your project.</p>
+                                        <p>To add a new object, simply press the "insert" button from the Hierarchy panel.</p>
+                                        <p><img src="images/addobject.png"/></p>
+                                        <p>A popup will appear, allowing you to chose to create either an empty object, or a predefined object.</p>
+                                        <p><img src="images/insertprefab.png"/></p>
+                                        <p>Objects can be dragged in the scene, and resized. To select an object, simply click on it.</p>
+                                        
+                                    </div>
+                                </div><!--//section-block-->
+
                                 <div id="scene" class="section-block"><!--section-block-->
                                     <h6 class="section-title">Scenes</h6>
                                     <div class="section-block">
@@ -137,8 +151,343 @@
                                         <p>The hierarchy window displays every object that you see in the scene, but in a sorted way, allowing you to see parents of objects and the render order. You can swich object's hierarchy and order by dragging them.</p>
                                     </div>
                                 </div><!--//section-block-->
+
+                                <div id="properties" class="section-block"><!--section-block-->
+                                    <h6 class="section-title">Properties</h6>
+                                    <div class="section-block">
+                                        <p><img src="images/properties.png"/></p>
+                                        <p>The properties panel displays the object's properties. If a script is attached to an object, its public variables will be displayed on the properties panel. For more informations on variables, see the <a href="#vars">Editor Variables</a>.</p>
+                                    </div>
+                                </div><!--//section-block-->
+
+                                 <div id="scripts" class="section-block"><!--section-block-->
+                                    <h6 class="section-title">Scripts</h6>
+                                    <div class="section-block">
+                                        <p><img src="images/scripts.png"/></p>
+                                        <p>A script is a modular component that contains Python code. Every script that is attached to an object is a different instance of that script, with specific public values set by the user in the properties panel.</p>
+                                        <p>To attach a script to an object, click on the "add script" button on the properties .</p>
+                                        <p><img src="images/addscript.png"/></p>
+                                        <p>Then select a script from the Project browser. All the scripts in your project will be displayed here. From here, you can either select an existing script or create a new one.</p>
+                                        <p><img width="300" src="images/selectscript.png"/></p>
+                                        <p>If you click on the create new script button, the script creation interface will show up.</p>
+                                        <p><img width="300" src="images/createscript.png"/></p>
+                                        <p>Selecting a template will create a script with built-in code.</p>
+                                        <p>Note that creating scripts manually also works. Any manually added file will show in the Project Panel.</p>
+                                        
+                                        <p>To edit a script, press the small "edit" icon in the properties window. The default application associated to .py files will open the script. Make sure you have properly set the default application before using the edit button.</p>
+                                        <p><img src="images/editscript.png"/></p>
+
+                                        <div class="callout-block callout-danger">
+                                        <div class="icon-holder">
+                                            <i class="fa fa-exclamation-triangle"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h4 class="callout-title">Warning</h4>
+                                            <p>Editing built-in scripts will modify them for other projects as well! It is recommended to make a copy of those scripts or create a project from a template.</p>
+                                        </div><!--//content-->
+                                        </div><!--//callout-block-->
+                                        <p>That being said, it can be helpful to open built-in scripts, just make sure you know what you are doing :)</p>
+
+                                    </div>
+                                    <h2 class="section-title"></h2>
+                                    <div class="section-block">
+                                    <p>Along with <a href="#vars">Editor Variables</a>, some commented keywords are parsed by the Editor to set some script parameters.</p>
+                                     <ul class="list">
+                                        <li>description</li>
+                                            <p>A short script description. This is displayed in the script selection interface and the project panel.</p>
+                                                <pre><code class="language-python">
+#description A test script 
+                                                </code></pre>
+                                            </p>
+                                       <li>icon</li>
+                                            <p>The css class for the script icon font material. Allowed values are <a href="https://www.w3schools.com/icons/fontawesome_icons_webapp.asp">Font Awesome</a> and <a href="https://www.w3schools.com/icons/bootstrap_icons_glyphicons.asp">Glyphicons</a>.</p>
+                                                <pre><code class="language-python">
+#icon fa-fa-cube
+                                                </code></pre>
+                                            </p>
+                                        <li>Main</li>
+                                            <p>The scene's starting point. If targets a function. If it is set, this is where the program will start from when you press the "play" button or when you build a scene.</p>
+                                                <pre><code class="language-python">
+#MAIN=Run
+
+def Run():
+    Log("Hi from object: "+self.name)
+                                                </code></pre>
+                                            </p>
+                                    </ul>
+                                    </div><!--//section-block-->
+                                </div><!--//section-block-->
+
+                                <div id="vars" class="section-block"><!--section-block-->
+                                    <h6 class="section-title">Editor Variables</h6>
+                                    <div class="section-block">
+                                        <p>Scripts can have public properties that are visible in the Editor.</p>
+                                        <p>Every Editor variable is declared with a <b>#param</b> header:</p>
+                                        <p><img src="https://raw.githubusercontent.com/MrNothing/AI-Blocks/master/ScreenShots/sc3.png" width="500"/></p>
+                                        <p>When you modify a script, the Editor variables are updated in real time, except when a scene is running.</p>
+                                        <p>Here is an exhaustive list of supported Editor variables types:
+                                            <ul class="list">
+
+                                                <li>string</li>
+                                                <p>
+                                                    <pre><code class="language-python">
+#param string 
+myString = "hello word"
+                                                    </code></pre>
+                                                </p>
+
+                                                <li>integer</li>
+                                                <p>
+                                                    <pre><code class="language-python">
+#param integer 
+myInt = 1
+                                                    </code></pre>
+                                                </p>
+
+                                                <li>float</li>
+                                                <p>
+                                                    <pre><code class="language-python">
+#param float 
+myFloat = 1
+                                                    </code></pre>
+                                                </p>
+
+                                                <li>eval</li>
+                                                <p>Allows the user to type math operations in the inspector. They are evaluated with javascript's <b>eval()</b></p>
+                                                <p>
+                                                    <pre><code class="language-python">
+#param eval 
+myEval = 10*2
+                                                    </code></pre>
+                                                </p>
+
+                                                <li>bool</li>
+                                                <p>Allows the user to type math operations in the inspector. They are evaluated with javascript's <b>eval()</b></p>
+                                                <p>
+                                                    <pre><code class="language-python">
+#param bool 
+myEval = True
+                                                    </code></pre>
+                                                </p>
+
+                                                <li>folder</li>
+                                                <p>When editing this field from the editor, a folder browser window will appead.</p>
+                                                <p>
+                                                    <pre><code class="language-python">
+#param folder 
+myString = "C:/Users/Documents/Bob/Projects/"
+                                                    </code></pre>
+                                                </p>
+
+                                                <li>file</li>
+                                                <p>When editing this field from the editor, a file browser window will appead.</p>
+                                                <p>
+                                                    <pre><code class="language-python">
+#param file 
+myString = "C:/Users/Documents/Bob/Projects/foo.bar"
+                                                    </code></pre>
+                                                </p>
+
+                                                <li>object</li>
+                                                <p>A reference to an object, when an object references an other, a line will show in the scene.</p>
+                                                <p>
+                                                    <pre><code class="language-python">
+#param object 
+myObject = None
+                                                    </code></pre>
+                                                </p>
+
+
+                                                <li>list</li>
+                                                <p>Displays a dropdown list in the Editor. Allowing the user to choose from one of the elements in the list.</p>
+                                                <p>
+                                                    <pre><code class="language-python">
+#param list:red, blue, greed
+mySelection = "red"
+                                                    </code></pre>
+                                                </p>
+
+
+                                                <li>array</li>
+                                                <p>Displays an editable array in the Editor. Arrays can be of the following types: <i>string, integer, float, bool, file, folder, object</i>.</p>
+                                                <p>
+                                                    <pre><code class="language-python">
+#param array|string
+myStringArray = ["one", "two", "three", "four"]
+
+#param array|object
+myObjectsArray = []
+                                                    </code></pre>
+                                                </p>
+
+                                                <li>Zones</li>
+                                                <p>Zones allow you to show or hide one or many variables inside a zone depending on a condition.</p>
+                                                <p>In this example, the <b>foo</b> variable will only be visible in the Editor if the <b>bar</b> variable equals "True":</p>
+                                                <p>
+                                                    <pre><code class="language-python">
+
+#param bool
+bar = False
+
+#zone bar==True
+
+#param string
+foo = "I am visible!"
+
+#endzone
+                                                    </code></pre>
+                                                </p>
+
+                                            </ul>
+
+                                            <p>One last thing worth mentioning is that Editor variables can only be called from <b>self</b>. This is because they actually are public class properties.</p>
+                                            <p>Here for example, to access the <b>foo</b> propery within my script, i need to do this:</p>
+                                                                                            <p>
+                                                    <pre><code class="language-python">
+
+#param string
+foo = "hello word"
+
+Log("foo: "+self.foo)
+                                                    </code></pre>
+                                                </p>
+                                                
+                                        </p>
+                                    </div>
+                                </div><!--//section-block-->
+
+                                 <div id="build" class="section-block"><!--section-block-->
+                                    <h6 class="section-title">Building a scene</h6>
+                                    <div class="section-block">
+                                        <p>To build a scene, click on the build button, a popup will appear.</p>
+                                        <p><img src="images/buildbut.png"/></p>
+                                        <p>Select the folder where you want to build and click the build button.</p>
+                                        <p>A python script called <i>main.py</i> will be generated. It is a standalone script that can be run without AI-Blocks, but still requires python and Tensorflow to run.</p>
+                                    </div>
+                                </div><!--//section-block-->
+
+                                 <div id="run" class="section-block"><!--section-block-->
+                                    <h6 class="section-title">Running a scene</h6>
+                                    <div class="section-block">
+                                        <p>To run a scene, simply click on the "play" button.</p>
+                                        <p><img src="images/newrun.png"/></p>
+                                        <p>You can cancel the run any time by pressing on the "stop" button next to it.</p>
+                                    </div>
+                                </div><!--//section-block-->
                                 
-                                
+                            </section><!--//doc-section-->
+
+                            <section id="python-api" class="doc-section">
+                                <h2 class="section-title">Python API</h2>
+                                <div id="Globals" class="section-block"><!--section-block-->
+                                    <h6 class="section-title">Globals</h6>
+                                    <div class="section-block">
+                                        <p>These properties and functions are always avaliable from any script.</p>
+                                        <li>Scripts</li>
+                                                <p>Here is a list of built-in script parameters:</p>
+                                                <p>
+                                                    <pre><code class="language-python">
+self.id #the id of the object this script was attached to
+self.name #the name of the object this script was attached to
+                                                    </code></pre>
+                                                </p>
+                                        <li>Global variables</li>
+                                                <p>
+                                                    <pre><code class="language-python">
+NaN #None equivalent for compatibility when eval fails
+                                                    </code></pre>
+                                                </p>
+                                        <li>Global functions</li>
+                                                <p>the flush parameter is used to flush the stdout and stdin buffers.</p>
+                                                <p>
+                                                    <pre><code class="language-python">
+#shows a message in the console
+#ignore errors: uses msg.encode(sys.stdout.encoding, errors='replace')
+Log(msg, flush=True, ignore_errors=False)
+
+#shows an error message in the console
+LogErr(msg, flush=False) 
+
+#shows a message in the console
+SetState(id, state, flush=True) 
+
+#send a value for a chart widget
+SendChartData(id, name, value, color='#3e95cd', flush=True) 
+
+#send a value for a pie chart widget
+SendPieData(id, name, color='#3e95cd', flush=True)  
+
+#send an image to an image viewer widget
+#data contains an array or normalized inputs (from 0 to 1)
+SendImageData(id, data, width=32, height=32, name="", rgba=False, flush=True, invert=False, offset=0) 
+
+#send an matplotlib plot to an image viewer widget
+SendGraph(id, data, data2=None, name="", offset=0, flush=True)
+                                                    </code></pre>
+                                                </p>
+                                    </div>
+                                </div><!--//section-block-->
+
+                                 <div id="AIBlocks" class="section-block"><!--section-block-->
+                                    <h6 class="section-title">AIBlocks</h6>
+                                    <div class="section-block">
+                                        <p>The AIBlocks namespace contains wrappers for Tensorflow</p>
+                                       
+                                            <li>InitModel</li>
+                                            <p>Initializes a Tensorflow model.</p>
+                                            <p><b>load_path</b> is an folder path that can be either empty or contains a saved Tensorflow state with the same model. If empty, will not load any model.</p>
+                                            <p>returns <b>instance</b> is an instance of the <a href="#TFInstance">TFInstance</a> class.</p>
+                                            <p>
+                                                <pre><code class="language-python">
+instance = AIBlocks.InitModel(load_path="")
+                                                </code></pre>
+                                            </p>
+
+                                            <li>SaveModel</li>
+                                            <p><b>instance</b> is an instance of the <a href="#TFInstance">TFInstance</a> class.</p>
+                                            <p><b>save_path</b> is a folder containing a saved Tensorflow state. If empty, it will get check the initial load_path specified in <bInitModel</b>, if it is empty too, it will do nothing.</p>
+                                            <p>
+                                            <p>
+                                                <pre><code class="language-python">
+AIBlocks.SaveModel(instance, save_path)
+                                                </code></pre>
+                                            </p>
+
+
+                                            <li>CloseSession/CloseInstance</li>
+                                            <p>Closes a tensorflow session.</p>
+                                            <p><b>instance</b> is an instance of the <a href="#TFInstance">TFInstance</a> class.</p>
+                                            <p>
+                                                <pre><code class="language-python">
+AIBlocks.CloseSession(instance)
+AIBlocks.CloseInstance(instance)
+                                                </code></pre>
+                                            </p>
+
+
+
+                                    </div>
+                                </div><!--//section-block-->
+
+                                <div id="TFInstance" class="section-block"><!--section-block-->
+                                    <h6 class="section-title">TFInstance</h6>
+                                    <div class="section-block">
+                                        <p>Contains state variables for an active Tensorflow session.</p>
+                                       <p>
+                                            <pre><code class="language-python">
+#get a new TFInstance instance
+instance = AIBlocks.InitModel(load_path="")
+
+feed_dict = {x:data}
+
+#example usages of TFInstance objects:
+instance.Run(self, tensors, feed_dict):
+instance.session.run(tensors, feed_dict=feed_dict)
+                                            </code></pre>
+                                        </p>
+                                    </div>
+                                </div><!--//section-block-->
+
                             </section><!--//doc-section-->
                             
                             </section><!--//doc-section-->
@@ -159,21 +508,23 @@
                                 <li>
                                     <a class="scrollto" href="#code-section">User Guide</a>
                                     <ul class="nav doc-sub-menu">
+                                        <li><a class="scrollto" href="#objects">Objects</a></li>
                                         <li><a class="scrollto" href="#scene">Scenes</a></li>
                                         <li><a class="scrollto" href="#hierarchy">Hierarchy</a></li>
                                         <li><a class="scrollto" href="#properties">Properties</a></li>
                                         <li><a class="scrollto" href="#scripts">Scripts</a></li>
-                                        <li><a class="scrollto" href="#scripts">Editor Variables</a></li>
-                                        <li><a class="scrollto" href="#scripts">Building a scene</a></li>
-                                        <li><a class="scrollto" href="#scripts">Running a scene</a></li>
+                                        <li><a class="scrollto" href="#vars">Editor Variables</a></li>
+                                        <li><a class="scrollto" href="#build">Building a scene</a></li>
+                                        <li><a class="scrollto" href="#run">Running a scene</a></li>
                                     </ul><!--//nav-->
                                 </li>
 
                                  <li>
-                                    <a class="scrollto" href="#code-section">Python API</a>
+                                    <a class="scrollto" href="#python-api">Python API</a>
                                     <ul class="nav doc-sub-menu">
-                                        <li><a class="scrollto" href="#inspector">Global functions</a></li>
-                                        <li><a class="scrollto" href="#css">AIBlocks</a></li>
+                                        <li><a class="scrollto" href="#Globals">Globals</a></li>
+                                        <li><a class="scrollto" href="#AIBlocks">AIBlocks</a></li>
+                                        <li><a class="scrollto" href="#TFInstance">TFInstance</a></li>
                                         <li><a class="scrollto" href="#less">TextHelper</a></li>
                                         <li><a class="scrollto" href="#sass">Math</a></li>
                                     </ul><!--//nav-->
