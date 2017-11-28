@@ -27,7 +27,7 @@ All releases can be found here: https://github.com/MrNothing/AI-Blocks/releases/
 
 ### Documentation
 
-Documentation and video tutorials can be found on the website: https://mrnothing.github.io 
+Documentation and video tutorials can be found on the website: https://mrnothing.github.io/AI-Blocks/index.html
 
 ### License
 
