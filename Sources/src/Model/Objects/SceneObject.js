@@ -103,4 +103,14 @@ export default class SceneObject{
 					return "fa fa-cube";
 			} 
 		}
+
+		getAllChildrenRecursive()
+		{
+			let children = this.children;
+
+			for (let c in children)
+				children = children.concat(children[c].getAllChildrenRecursive());
+
+			return children;
+		}
 }

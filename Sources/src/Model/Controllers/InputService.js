@@ -28,12 +28,12 @@ export default class InputService extends React.Component {
 		  				window.service.menuUI.saveProjectClicked();
 		  	}
 
-		  	if(event.key == 'c'){
+		  	if(event.key == 'c' && document.activeElement.id=="body"){
 		  			if(window.service.project!=null)
 		  				window.service.copySelection();
 		  	}
 
-		  	if(event.key == 'v'){
+		  	if(event.key == 'v' && document.activeElement.id=="body"){
 		  			if(window.service.project!=null)
 		  				window.service.pasteSelection();
 		  	}

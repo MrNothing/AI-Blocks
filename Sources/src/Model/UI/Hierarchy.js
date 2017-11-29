@@ -13,112 +13,11 @@ export default class Hierarchy extends React.Component {
 	    window.service.hierarchyUI = this;
 	}
 
-	insertObject(type)
-	{
-		let parent = this.state.selectedObject;
-
-		console.log("parent: "+parent);
-
-		let obj = new SceneObject(window.service.getUniqueID(), type.replace("_", " "));
-		obj.scene = window.service.currentScene;
-
-		if(type.length>0)
-		{
-			let script = window.service.scriptsManager.CloneScript(window.service.scriptsManager.scripts[type+".py"]);
-			obj.scripts.push(script);
-		}
-		else
-		{
-			obj.name = "Empty Object";
-		}
-
-		if(parent==null)
-			window.service.scene.push(obj);
-		else
-			parent.children.push(obj);
-
-		this.forceUpdate();
-		window.service.sceneUI.update();
-		$('#insert-object-popup').modal("hide");
-	}
-
-	renderScriptInsertCollapseButton(script, displayName, icon)
-	{
-		return (<a onClick={this.insertObject.bind(this, script)} href="#" className="list-group-item list-group-item-action"><span className={icon}/> {displayName}</a>);
-		
-	}
-
-	renderInsertNewObjectPopup()
-	{
-		return (<Popup extra="small-modal" title="Insert:" id="insert-object-popup">
-					<div className="list-group">
-					
-						{this.renderScriptInsertCollapseButton("", "Empty Object", "fa fa-cube")}
-
-	  					<a className="list-group-item list-group-item-action insert collapsed" data-toggle="collapse" href={"#insert_details_0"} aria-expanded="false" aria-controls={"insert_details_0"}>
-						&nbsp;Models
-							<div className="collapse" id="insert_details_0">
-					  			<div className="card card-body">
-								  {this.renderScriptInsertCollapseButton("neural_network", "Neural Network", "fa fa-code-fork")}
-								  {this.renderScriptInsertCollapseButton("rnn", "Recurent Neural Network", "glyphicon glyphicon-link")}
-								  {this.renderScriptInsertCollapseButton("graph", "Graph", "fa fa-cubes")}
-						    	</div>
-							</div>
-						</a>
-
-						<a className="list-group-item list-group-item-action insert collapsed" data-toggle="collapse" href={"#insert_details_1"} aria-expanded="false" aria-controls={"insert_details_1"}>
-						&nbsp;Functions
-							<div className="collapse" id="insert_details_1">
-					  			<div className="card card-body">
-								  {this.renderScriptInsertCollapseButton("function", "Activation Function", "fa fa-flask")}
-								  {this.renderScriptInsertCollapseButton("convolutions", "Convolutions", "fa fa-sitemap")}
-						    	</div>
-							</div>
-						</a>
-
-						<a className="list-group-item list-group-item-action insert collapsed" data-toggle="collapse" href={"#insert_details_2"} aria-expanded="false" aria-controls={"insert_details_2"}>
-						&nbsp;Usage
-							<div className="collapse" id="insert_details_2">
-					  			<div className="card card-body">
-								  {this.renderScriptInsertCollapseButton("auto_encoder", "Auto Encoder", "glyphicon glyphicon-random")}
-								  {this.renderScriptInsertCollapseButton("classifier", "Classifier", "fa fa-magic")}
-								  {this.renderScriptInsertCollapseButton("predictor", "Predictor", "fa fa-magic")}
-						    	</div>
-							</div>
-						</a>
-
-						<a className="list-group-item list-group-item-action insert collapsed" data-toggle="collapse" href={"#insert_details_3"} aria-expanded="false" aria-controls={"insert_details_3"}>
-						&nbsp;Loaders
-							<div className="collapse" id="insert_details_3">
-					  			<div className="card card-body">
-								  {this.renderScriptInsertCollapseButton("csv_loader", "CSV Loader", "fa fa-file-excel-o")}
-								  {this.renderScriptInsertCollapseButton("MINST_loader", "MINST Loader", "fa fa-sort-numeric-asc")}
-								  {this.renderScriptInsertCollapseButton("CIFAR10_loader", "Cifar10 Loader", "fa fa-file-image-o")}
-						    	</div>
-							</div>
-						</a>
-
-						<a className="list-group-item list-group-item-action insert collapsed" data-toggle="collapse" href={"#insert_details_4"} aria-expanded="false" aria-controls={"insert_details_4"}>
-						&nbsp;Viewers
-							<div className="collapse" id="insert_details_4">
-					  			<div className="card card-body">
-								  {this.renderScriptInsertCollapseButton("chart", "Chart", "fa fa-area-chart")}
-								  {this.renderScriptInsertCollapseButton("image_viewer", "Output Viewer (Image)", "fa fa-eye")}
-						    	</div>
-							</div>
-						</a>
-
-						<a className="list-group-item list-group-item-action insert collapsed" data-toggle="collapse" href={"#insert_details_5"} aria-expanded="false" aria-controls={"insert_details_5"}>
-						&nbsp;Networking
-							<div className="collapse" id="insert_details_5">
-					  			<div className="card card-body">
-								  {this.renderScriptInsertCollapseButton("socket_server", "Socket Server", "fa fa-plug")}
-								</div>
-							</div>
-						</a>
-
-					</div>
-				</Popup>);
+	componentDidCatch(error, info) {
+		// Display fallback UI
+		this.setState({ hasError: true });
+		// You can also log the error to an error reporting service
+		window.service.log(error, info, 2);
 	}
 
 	renderInsertNewObjectButton()
@@ -144,16 +43,19 @@ export default class Hierarchy extends React.Component {
 						selected = " selected";
 					}
 
+					if(window.service.selectedObjects[objects[file].id] && window.service.selectedObjects[objects[file].id]!=undefined)
+						selected = " selected";
+
 					if(objects[file].children.length>0)
 					{
 						let children = this.renderRecursive(objects[file].children, false)
 
-						let label = <span onClick={this.selectObject.bind(this, objects[file])} className={"node"+selected}><span className={objects[file].getObjectIcon()}/> {objects[file].name}</span>;
+						let label = <span onClick={this.selectObject.bind(this, objects[file], false)} className={"node"+selected}><span className={objects[file].getObjectIcon()}/> {objects[file].name}</span>;
 						elems.push(<TreeView className="node object" defaultCollapsed={true} nodeLabel={label}><div className="info">{children}</div></TreeView>);
 					}
 					else
 					{
-						elems.push(<div onClick={this.selectObject.bind(this, objects[file])} className={"info"+selected}><span className={objects[file].getObjectIcon()}/> {objects[file].name}</div>);
+						elems.push(<div onClick={this.selectObject.bind(this, objects[file], false)} className={"info"+selected}><span className={objects[file].getObjectIcon()}/> {objects[file].name}</div>);
 					}
 				}
 			}
@@ -172,19 +74,118 @@ export default class Hierarchy extends React.Component {
   		}
 	}
 
-	selectObject(object)
+	selectObject(object, add)
 	{
-		window.service.selectedObject = object;
-		window.service.propertiesUI.setTarget();
-		window.service.sceneUI.update();
-		this.setState({selectedObject:object});
+		window.service.actionsManager.insertSelectObjectAction(object, add);
+
+
+		let clearSelection = false;
+		if(object!=null)
+		{
+			if(window.service.keysPressed["Control"] || add)
+			{
+				if(window.service.selectedObjects[object.id])
+				{
+					//window.service.log("removing selection: "+object.id, "", 0)
+					clearSelection = true;
+
+					delete window.service.selectedObjects[object.id];
+				}
+				else
+				{
+					//window.service.log("adding selection: "+object.id, "", 0)
+					window.service.selectedObjects[object.id] = object;
+
+					window.service.selectedObject = object;
+					window.service.propertiesUI.setTarget();
+					window.service.sceneUI.update();
+					this.setState({selectedObject:object});
+				}
+			}
+			else
+			{
+				//window.service.log("single select: "+object.id, "", 0)
+				window.service.selectedObjects = {};
+				window.service.selectedObjects[object.id] = object;
+			}
+		}
+		
+		if(clearSelection)
+		{
+			if(Object.keys(window.service.selectedObjects).length==0)
+			{
+				//window.service.log("single clear: "+object.id, "", 0)
+				window.service.selectedObject = null;
+				window.service.propertiesUI.setTarget();
+				this.setState({selectedObject:null});
+			}
+			else
+			{
+				for(let i in window.service.selectedObjects)
+				{
+					//window.service.log("shifting selection: "+object.id, "", 0)
+					window.service.selectedObject = window.service.selectedObjects[i];
+					window.service.propertiesUI.setTarget();
+					this.setState({selectedObject:window.service.selectedObjects[i]});
+					break;
+				}
+			}	
+		}
+
+		if(!window.service.keysPressed["Shift"] || add)
+		{
+			window.service.selectedObject = object;
+			window.service.propertiesUI.setTarget();
+			window.service.sceneUI.update();
+			this.setState({selectedObject:object});
+		}
+		else
+		{
+			window.service.propertiesUI.setTarget();
+			window.service.sceneUI.update();
+			this.forceUpdate();
+		}
+	}
+
+	unselectObject(object)
+	{
+		window.service.actionsManager.insertunselectObjectAction(object.id);
+
+		if(window.service.selectedObjects[object.id])
+		{
+			//window.service.log("removing selection: "+object.id, "", 0)
+			delete window.service.selectedObjects[object.id];
+
+			if(Object.keys(window.service.selectedObjects).length==0)
+			{
+				//window.service.log("single clear: "+object.id, "", 0)
+				window.service.selectedObject = null;
+				window.service.propertiesUI.setTarget();
+				this.setState({selectedObject:null});
+			}
+			else
+			{
+				for(let i in window.service.selectedObjects)
+				{
+					//window.service.log("shifting selection: "+object.id, "", 0)
+					window.service.selectedObject = window.service.selectedObjects[i];
+					window.service.propertiesUI.setTarget();
+					this.setState({selectedObject:window.service.selectedObjects[i]});
+					break;
+				}
+			}
+
+			window.service.selectedObject = object;
+			window.service.propertiesUI.setTarget();
+			window.service.sceneUI.update();
+			this.setState({selectedObject:object});
+		}
 	}
 
 	render() {
 		let ret = (
 		  	<div className="scrollable_container">
 		  		{this.renderRecursive(window.service.scene, true)}
-		  		{this.renderInsertNewObjectPopup()}
 		  		<div className="bg-click" onClick={this.selectObject.bind(this, null)}/>
 	  		</div>
 		);

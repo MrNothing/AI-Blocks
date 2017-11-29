@@ -1,6 +1,7 @@
 import SceneObject from '../Objects/SceneObject';
 import Script from '../Objects/Script';
 import ScriptsManager from '../Managers/ScriptsManager';
+import ActionsManager from '../Managers/ActionsManager';
 
 export default class GlobalService
 {
@@ -8,6 +9,7 @@ export default class GlobalService
 	    this.project = null;
 	    this.scene = [];
 		this.selectedObject = null; //used by property window
+		this.selectedObjects = {};
 		this.logs = [];
 	 	this.charts = {};
 	 	this.image_viewers = {};
@@ -40,6 +42,11 @@ export default class GlobalService
 	    this.keysPressed = {};
 
 	    this.scriptsManager = new ScriptsManager();
+	    this.actionsManager = new ActionsManager();
+
+	    this.mouse_pos = {x:0, y:0};
+	    this.offset = {x:0, y:0};
+	    this.zoom =1;
 
 	    //scene test
 	    /*let obj1 = new SceneObject(-3, "obj0");
@@ -132,9 +139,16 @@ export default class GlobalService
     	{
     		if(this.outputUI!=null)
 				this.outputUI.forceUpdate();
+
 	    	this.log("Project loaded: "+this.loading.properties.projectname, this.loading.properties.projectpath, 3);	
 
 	   		this.project = this.loading.properties;
+
+	   		if(!this.project.sceneNames)
+	   		{
+	   			this.project.sceneNames = ['Scene 1', 'Scene 2', 'Scene 3', 'Scene 4']
+	   		}
+
 			this.loadSceneFromJson(this.loading.scene);
 
 			window.service.charts = {};
@@ -192,7 +206,8 @@ export default class GlobalService
     		this.objectsByID[o].status = 0;
     	}
 
-    	this.log("Running ended.", "", 4);
+
+    	this.log("Running ended, Lasted: "+((performance.now() - this.t0)/1000) + " seconds.", "", 4);
     	this.footerUI.forceUpdate();
     	this.runningUI.forceUpdate();
     	this.sceneUI.forceUpdate();
@@ -200,36 +215,70 @@ export default class GlobalService
 
     copySelection()
     {
-    	this.offset = 0
-    	this.copied_obj = window.service.selectedObject;
+    	this.offset_copy = 1;
+    	this.copied_obj = this.selectedObjects;
     }
 
     pasteSelection()
     {
-    	let parent = window.service.selectedObject
+    	window.service.sceneUI.clearSelection();
 
-		let obj = new SceneObject(window.service.getUniqueID(), this.copied_obj.name);
+    	let linksMap = {}
+    	for(let i in this.copied_obj)
+    	{
+    		linksMap[i] = this.pasteObject(this.copied_obj[i])
+    	}
 
-		obj.position.x = this.copied_obj.position.x+this.offset*5;
-		obj.position.y = this.copied_obj.position.y+this.offset*5;
-		obj.scale.x = this.copied_obj.scale.x;
-		obj.scale.y = this.copied_obj.scale.y;
 		
-		obj.scene = window.service.currentScene;
-
-		for (let s in this.copied_obj.scripts)
-		{
-			obj.scripts.push(window.service.scriptsManager.CloneScript(this.copied_obj.scripts[s]));
-		}
-
-		if(parent==null)
-			window.service.scene.push(obj);
-		else
-			parent.children.push(obj);
+    	for(let i in linksMap)
+    	{
+			for(let s in linksMap[i].scripts)
+    		{
+				let params = linksMap[i].scripts[s].params;
+    			for(let p in params)
+    			{
+    				let param = params[p];
+    				if(param.type.trim()=="object")
+    				{
+    					if(linksMap[param.value])
+    					{
+    						param.value = linksMap[param.value].id;
+    					}
+    				}
+    			}
+    		}
+    	}
 
 		this.hierarchyUI.forceUpdate();
 		this.sceneUI.update();
+		this.offset_copy+=1;
+    }
 
-		this.offset+=1;
+    pasteObject(object)
+    {
+    	let parent = window.service.selectedObject
+
+		let obj = new SceneObject(window.service.getUniqueID(), object.name);
+
+		obj.position.x = object.position.x+this.offset_copy*5;
+		obj.position.y = object.position.y+this.offset_copy*5;
+		obj.scale.x = object.scale.x;
+		obj.scale.y = object.scale.y;
+		
+		obj.scene = window.service.currentScene;
+
+		for (let s in object.scripts)
+		{
+			obj.scripts.push(window.service.scriptsManager.CloneScript(object.scripts[s]));
+		}
+
+		this.hierarchyUI.selectObject(obj, true);
+
+		//if(parent==null)
+		window.service.scene.push(obj);
+		//else
+		//	parent.children.push(obj);
+
+		return obj;
     }
 }

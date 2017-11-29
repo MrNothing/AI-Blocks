@@ -25,7 +25,7 @@ export default class Menu extends React.Component {
 				window.service.checkLoadingComplete();
 			}).catch(err => {
 		   		alert("Failed to load project: "+err);
-				window.service.log("Failed to load project!", err+"", 2);	
+				window.service.log("Failed to load project!", err+" "+err.stack, 2);
 			});
 
 			let loader2 = new JsonManager(null);
@@ -34,7 +34,7 @@ export default class Menu extends React.Component {
 				window.service.checkLoadingComplete();
 			}).catch(err => {
 		   		alert("Failed to load project: "+err);
-				window.service.log("Failed to load project!", err+"", 2);		
+				window.service.log("Failed to load project!", err+" "+err.stack, 2);		
 			});
 		}
 	}
@@ -67,20 +67,20 @@ export default class Menu extends React.Component {
 
 	render() {
 		return (
-			<div className="input-group">
-				<button type="button" className="btn btn-default btn-sm" data-toggle="modal" data-target="#new-project-popup">
+			<div className="btn-group">
+				<button type="button" className="btn btn-default btn-sm menubtn" data-toggle="modal" data-target="#new-project-popup">
 					<span className="glyphicon glyphicon-plus"></span> New Project
 				</button>
-				<button type="button" className="btn btn-default btn-sm" onClick={this.openProjectClicked}>
+				<button type="button" className="btn btn-default btn-sm menubtn" onClick={this.openProjectClicked}>
 					<span className="glyphicon glyphicon-folder-open"></span>
 				</button>
-				<button type="button" className="btn btn-default btn-sm" disabled={this.checkDisabled()} onClick={this.saveProjectClicked}>
+				<button type="button" className="btn btn-default btn-sm menubtn" disabled={this.checkDisabled()} onClick={this.saveProjectClicked}>
 					<span className="glyphicon glyphicon-floppy-disk"></span>
 				</button>
-				<button type="button" className="btn btn-default btn-sm" disabled={this.checkDisabled()} data-toggle="modal" data-target="#project-properties">
+				<button type="button" className="btn btn-default btn-sm menubtn" disabled={this.checkDisabled()} data-toggle="modal" data-target="#project-properties">
 					<span className="glyphicon glyphicon-cog"></span>
 				</button>
-				<button type="button" className="btn btn-default btn-sm" disabled={this.checkDisabled()} data-toggle="modal" data-target="#project-builder">
+				<button type="button" className="btn btn-default btn-sm menubtn" disabled={this.checkDisabled()} data-toggle="modal" data-target="#project-builder">
 					<i className="material-icons">build</i>
 				</button>
 			</div>

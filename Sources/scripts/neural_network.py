@@ -9,7 +9,7 @@ use_name = False
 #param array|eval
 hidden_units = [1024, 256, 10]
 
-
+self.type = "feedforward"
 self.name = self.name.replace(" ", "_")
 self.init()
 
@@ -36,11 +36,23 @@ def xavier_init(self, size):
 	return tf.random_normal(shape=size, stddev=xavier_stddev)
 
 def Run(self, h, reuse=False):
+	Log("Running "+self.name)
 	for i in range(int(len(self.variables)/2)):
 		W=self.variables[i*2]
 		b=self.variables[i*2+1]
 		h = tf.matmul(h, W) + b
+		if i<len(self.variables)/2-1:
+			Log("relu on")
+			h = tf.nn.relu(h)
+		else:
+			Log("relu off")
 		Log(h.name+" "+str(h.get_shape()))
 
 	Log(h.name+" "+str(h.get_shape()))
 	return h
+
+def GetInputSize(self):
+	return self.hidden_units[0]
+
+def getVariables(self):
+	return self.variables

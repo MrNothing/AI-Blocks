@@ -60,23 +60,23 @@ export default class Output extends React.Component {
   		{
   			if(window.service.logs[line].type==0)
   			{
-  				logs.push(<a href="#" className="list-group-item list-group-item-action" data-toggle="collapse" href={"#"+"console_details_"+line} aria-expanded="false" aria-controls={"console_details_"+line}><span className="glyphicon glyphicon-info-sign"></span> {window.service.logs[line].msg}{this.renderDetails("console_details_"+line, window.service.logs[line].details)}</a>);
+  				logs.push(<span style={{"user-select": "initial"}} href="#" className="list-group-item list-group-item-action" data-toggle="collapse" href={"#"+"console_details_"+line} aria-expanded="false" aria-controls={"console_details_"+line}><span className="glyphicon glyphicon-info-sign"></span> {window.service.logs[line].msg}{this.renderDetails("console_details_"+line, window.service.logs[line].details)}</span>);
   			}
   			else if(window.service.logs[line].type==1)
   			{
-  				logs.push(<a href="#" className="list-group-item list-group-item-action list-group-item-warning" data-toggle="collapse" href={"#"+"console_details_"+line} aria-expanded="false" aria-controls={"console_details_"+line}><span className="glyphicon glyphicon-exclamation-sign"></span> {window.service.logs[line].msg}{this.renderDetails("console_details_"+line, window.service.logs[line].details)}</a>);
+  				logs.push(<span style={{"user-select": "initial"}} href="#" className="list-group-item list-group-item-action list-group-item-warning" data-toggle="collapse" href={"#"+"console_details_"+line} aria-expanded="false" aria-controls={"console_details_"+line}><span className="glyphicon glyphicon-exclamation-sign"></span> {window.service.logs[line].msg}{this.renderDetails("console_details_"+line, window.service.logs[line].details)}</span>);
   			}
   			else if(window.service.logs[line].type==2)
   			{
-  				logs.push(<a href="#" className="list-group-item list-group-item-action list-group-item-danger" data-toggle="collapse" href={"#"+"console_details_"+line} aria-expanded="false" aria-controls={"console_details_"+line}><span className="glyphicon glyphicon-remove"></span> {window.service.logs[line].msg}{this.renderDetails("console_details_"+line, window.service.logs[line].details)}</a>);
+  				logs.push(<span style={{"user-select": "initial"}} href="#" className="list-group-item list-group-item-action list-group-item-danger" data-toggle="collapse" href={"#"+"console_details_"+line} aria-expanded="false" aria-controls={"console_details_"+line}><span className="glyphicon glyphicon-remove"></span> {window.service.logs[line].msg}{this.renderDetails("console_details_"+line, window.service.logs[line].details)}</span>);
   			}
   			else if(window.service.logs[line].type==3)
   			{
-  				logs.push(<a href="#" className="list-group-item list-group-item-action list-group-item-success" data-toggle="collapse" href={"#"+"console_details_"+line} aria-expanded="false" aria-controls={"console_details_"+line}><span className="glyphicon glyphicon-ok"></span> {window.service.logs[line].msg}{this.renderDetails("console_details_"+line, window.service.logs[line].details)}</a>);
+  				logs.push(<span style={{"user-select": "initial"}} href="#" className="list-group-item list-group-item-action list-group-item-success" data-toggle="collapse" href={"#"+"console_details_"+line} aria-expanded="false" aria-controls={"console_details_"+line}><span className="glyphicon glyphicon-ok"></span> {window.service.logs[line].msg}{this.renderDetails("console_details_"+line, window.service.logs[line].details)}</span>);
   			}
   			else if(window.service.logs[line].type==4)
   			{
-  				logs.push(<a href="#" className="list-group-item list-group-item-action list-group-item-info" data-toggle="collapse" href={"#"+"console_details_"+line} aria-expanded="false" aria-controls={"console_details_"+line}><span className="glyphicon glyphicon-info-sign"></span> {window.service.logs[line].msg}{this.renderDetails("console_details_"+line, window.service.logs[line].details)}</a>);
+  				logs.push(<span style={{"user-select": "initial"}} href="#" className="list-group-item list-group-item-action list-group-item-info" data-toggle="collapse" href={"#"+"console_details_"+line} aria-expanded="false" aria-controls={"console_details_"+line}><span className="glyphicon glyphicon-info-sign"></span> {window.service.logs[line].msg}{this.renderDetails("console_details_"+line, window.service.logs[line].details)}</span>);
   			}
   		}
 
@@ -86,7 +86,7 @@ export default class Output extends React.Component {
 	render() {
 		return (
 			<div id="consoleWin" className="scrollable_container">
-			  		{this.renderLogs()}
+		  		{this.renderLogs()}
 		  	</div>
 		);
 	}

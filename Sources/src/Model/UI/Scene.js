@@ -10,10 +10,19 @@ export default class Scene extends React.Component {
 
 		this.enableWidgets();
 
-		this.state = {selectObject:null};
+		this.state = {selectObject:null, drag_state:[0, 0]};
 		
 		window.service.objectsByID = {};
 		window.service.sceneUI = this;
+
+		window.service.offset = {x:0, y:0};
+	}
+
+	componentDidCatch(error, info) {
+		// Display fallback UI
+		this.setState({ hasError: true });
+		// You can also log the error to an error reporting service
+		window.service.log(error, info, 2);
 	}
 
 	update()
@@ -32,17 +41,28 @@ export default class Scene extends React.Component {
 	{
 		$( function() {
 			$( ".scene-object" ).draggable({
+			  start: function(event) {
+			  	    let obj = window.service.objectsByID[event.target.id];
+			  	    window.service.draggedobj = obj;
+		      		window.service.using_widget = true;
+			      },
 		      stop: function(event) {
+		      		window.service.draggedobj = null;
 		      		let obj = window.service.objectsByID[event.target.id];
 			        window.service.sceneUI.updateObject(obj, obj.id, true);
+		      		window.service.using_widget = false;
 			      }
 			});
 			$( ".scene-object" ).resizable({
-		      minHeight: 75,
-		      minWidth: 75,
+		      minHeight: 50,
+		      minWidth: 50,
+		      start: function(event) {
+		      		window.service.using_widget = true;
+			      },
 			  stop: function(event) {
 		      		let obj = window.service.objectsByID[event.target.id];
 			        window.service.sceneUI.updateObject(obj, obj.id, true);
+		      		window.service.using_widget = false;
 			      }
 		    });
 		});
@@ -81,12 +101,16 @@ export default class Scene extends React.Component {
 	    		if(window.service.scene[i].id==window.service.selectedObject.id)
 	    		{
 	    			window.service.scene.splice(i, 1);
-	    			if(window.service.selectedObject.children.length>0)
-		    		{
-		    			this.findAndDeleteRecursive(window.service.selectedObject)
-		    		}
 	    			break;
 	    		}
+	    		else
+	    		{
+	    			if(window.service.scene[i].children.length>0)
+		    		{
+		    			this.findAndDeleteRecursive(window.service.scene[i])
+		    		}
+	    		}
+
 	    	}
 		}
 		else
@@ -201,6 +225,7 @@ export default class Scene extends React.Component {
 	renderObjects(objects)
 	{
 		let output = [];
+		let minimap_out = [];
 		for(let i in objects)
 		{
 			let object = objects[i];
@@ -242,23 +267,31 @@ export default class Scene extends React.Component {
 					}
 				}
 
-				let x = object.position.x+"px";
-				if(object.position.x==null)
-					x = "0px";
-				let y = object.position.y+"px";
-				if(object.position.y==null)
-					y = "0px";
-				let w = object.scale.x+"px";
-				if(object.scale.x==null)
-					w = "200px";
-				let h = object.scale.y+"px";
-	  			if(object.scale.y==null)
-	  				h = "200px";
+				if(window.service.selectedObjects[object.id])
+					selected = "selected";
 
-	  			let styleObj = {top:y, left:x, width:w, height:h, background: "rgb(255, 216, 216)"}
+				let x = object.position.x;
+				if(object.position.x==null)
+					x = "0";
+				let y = object.position.y;
+				if(object.position.y==null)
+					y = "0";
+				let w = object.scale.x;
+				if(object.scale.x==null)
+					w = "200";
+				let h = object.scale.y;
+	  			if(object.scale.y==null)
+	  				h = "200";
+
+	  			let styleObj = {top:y+"px", left:x+"px", width:w+"px", height:h+"px", background: "rgba(255, 255, 255, 0.5)", borderStyle: "dashed"}
 	  			if(object.enabled=="True")
 	  			{
-	  				styleObj["background"] = "rgb(255, 255, 255)";
+	  				styleObj["background"] = "#FFF";
+	  				styleObj["borderStyle"] = "solid";
+	  			}
+	  			else
+	  			{
+	  				styleObj["color"] = "rgba(41, 114, 160, 0.34)";
 	  			}
 
 	  			let plug;
@@ -271,31 +304,78 @@ export default class Scene extends React.Component {
 					plug = <span style={{visibility:"hidden"}} className="fa fa-dot-circle-o plug" id={"target_"+object.id}></span>;
 	  			}
 
+	  			let name = object.name;
+	  			let fsize = "20px";
+	  			let progressbar = this.renderProgressbar(object);
+	  			if(w<75 || h<75)
+	  			{
+	  				name = "";
+	  				fsize = "30px";
+	  				progressbar = (<div/>);
+	  			}
+
 				output.push(<div style={styleObj} 
 						onClick={this.updateObject.bind(this, object, object.id, false)}
 						id={"widget_"+object.id} 
 						className={"scene-object "+selected}>
-						<span style={{fontSize:"30px"}} className={object.getObjectIcon()}/> {object.name}
+						<span style={{fontSize:fsize}} className={object.getObjectIcon()}/> {name}
 						{this.renderObjectModules(object)}
-						{this.renderProgressbar(object)}
+						{progressbar}
 						{plug}
 					 </div>);
 
+				let zoom = {x:20, y:20}; 
+
+				let minimap_styleObj = {top:(y/zoom.y+10)+"px", left:(x/zoom.x+25)+"px", width:(w/zoom.x)+"px", height:(h/zoom.y)+"px", background: styleObj["background"]}
+
+				minimap_out.push(<div style={minimap_styleObj} 
+									className={"tiny-object "+selected}>
+					 			</div>)
+
 	  			if(object.children.length>0)
 	  			{
-					output = output.concat(this.renderObjects(object.children));
+	  				let obj = this.renderObjects(object.children);
+					output = output.concat(obj.scene);
+					minimap_out = minimap_out.concat(obj.minimap);
 	  			}
 			}
 
 		}
 			
-		return output;
+		return {scene: output, minimap: minimap_out};
 	}
 
 	clearSelection()
 	{
-		window.service.hierarchyUI.selectObject(null);
-		this.state = {selectedObject:null};
+		window.service.actionsManager.insertClearSelectionAction();
+		
+		if(!window.service.ignoreNextClear)
+		{
+			window.service.selectedObjects = {};
+			window.service.hierarchyUI.selectObject(null);
+			this.state = {selectedObject:null};
+		}
+
+		window.service.ignoreNextClear = false;
+	}
+
+	start_drag()
+	{
+		window.service.nextdrag = false;
+		window.service.dragging = true;
+		window.service.init_select_pos = {x:window.service.mouse_pos.x, y:window.service.mouse_pos.y};
+
+		document.getElementById("selection_rect").style.width = "0px";
+    	document.getElementById("selection_rect").style.height = "0px";
+    	document.getElementById("selection_rect").style.left = window.service.mouse_pos.x+"px";
+    	document.getElementById("selection_rect").style.top = (window.service.mouse_pos.y-100)+"px";
+	}
+
+	stop_drag()
+	{
+		window.service.dragging = false;
+		window.service.draggingWindow = false;
+        document.getElementById("selection_rect").style.display = "none";
 	}
 
   	renderElements() 
@@ -305,14 +385,25 @@ export default class Scene extends React.Component {
   			window.service.objectsByID = {};
   			window.service.objectsLinks = [];
   			window.service.objectsLinksValidator = {};
-  			let scene = this.renderObjects(window.service.scene);
+  			let objects = this.renderObjects(window.service.scene);
+  			let scene = objects.scene;
   			let links = this.renderLinks();
+  			let minimap = objects.minimap;
   			window.service.sceneReady = true;
 			return (<div>
-						{scene}
-						{links}
-						<div onClick={this.clearSelection.bind(this)} style={{ width: "9999px",height: "9999px"}} id="sceneBg"/>
-					</div>);
+						<div className="minimap">
+							<div id="minimap_draggable" style={{position:"relative", top:"0px", left:"0px"}}>
+								{minimap}
+							</div>
+						</div>
+
+						<div id="scene_draggable" style={{position:"relative", top:"0px", left:"0px"}}>
+							{scene}
+							{links}
+							<div onClick={this.clearSelection.bind(this)} style={{ width: "0px",height: "0px", "user-select": "none"}} id="sceneBg"/>
+						</div>
+					</div>
+					);
   		}
   		else
   		{
@@ -366,8 +457,8 @@ export default class Scene extends React.Component {
 		  						maxLeftLeft = target1.left-2;
 		  				}
 
-		  				let div0 = <div key={"link0_"+l} className="link_line" style={{position:'absolute', left:minLeft+8, top:maxTop-62, width:hdiff, height:15+counter*5}}/>;
-		  				let div1 = <div key={"link1_"+l} className="link_line2" style={{position:'absolute', left:maxLeftLeft+8, top:maxLeftTop-62, width:0, height:diff}}/>;
+		  				let div0 = <div key={"link0_"+l} className="link_line" style={{position:'absolute', left:minLeft+40, top:maxTop-10, width:hdiff, height:15+counter*5}}/>;
+		  				let div1 = <div key={"link1_"+l} className="link_line2" style={{position:'absolute', left:maxLeftLeft+40, top:maxLeftTop-10, width:0, height:diff}}/>;
 		  				output.push(div0);
 		  				output.push(div1);
 		  				counter++;
@@ -387,7 +478,10 @@ export default class Scene extends React.Component {
 	        left += element.offsetLeft || 0;
 
 	        element = element.offsetParent;
-	    } while(element && !last);
+	    } while(element);
+
+	    top += -43-window.service.offset.y*window.service.zoom;
+	    left += -30-window.service.offset.x*window.service.zoom;
 
 	    return {
 	        top: top,
@@ -397,8 +491,9 @@ export default class Scene extends React.Component {
 
 	render() {
 		return (
-			<div className="global_container">
+			<div id="scene_rect" className="global_container" style={{overflow: "hidden", height:"97%"}} onMouseDown={e => this.start_drag (e)} >
 				{this.renderElements()}
+				<div className="selection_rect" id="selection_rect" style={{width: "100px", height:"100px"}}/>
 		  	</div>
 		);
 	}

@@ -27,6 +27,13 @@ export default class Properties extends React.Component {
 	    }
 	}
 
+	componentDidCatch(error, info) {
+		// Display fallback UI
+		this.setState({ hasError: true });
+		// You can also log the error to an error reporting service
+		window.service.log(error, info, 2);
+	}
+
 	setTarget()
 	{	
 		this.setState({target:true});
@@ -85,7 +92,12 @@ export default class Properties extends React.Component {
   			{
 	  			this.state.source = window.service.selectedObject.toJsonSource();
 	  			//get the target's json object
-	  			return this.renderDataGrid(window.service.selectedObject.toJsonDescriptor());
+	  			if(Object.keys(window.service.selectedObjects).length<=1)
+	  				return this.renderDataGrid(window.service.selectedObject.toJsonDescriptor());
+	  			else
+	  			{
+	  				return <div>{Object.keys(window.service.selectedObjects).length+""} objects selected</div>;
+	  			}
   			}
   			else
   			{
@@ -258,7 +270,7 @@ export default class Properties extends React.Component {
 						params.push((
 
 							<div key={script.params[p].name+"_"+script.id+"_"+p} className="input-group">
-							  <span className="input-group-addon input-group-small input-group-addon-small">{script.params[p].name}:</span>
+							  <span className="input-group-addon input-group-small input-group-addon-small no_b_right">{script.params[p].name}:</span>
 							  <i onClick={this.toggleScript.bind(this, script, p, null)} className={classToggle} title={script.params[p].value}/>
 							</div>
 
@@ -321,9 +333,13 @@ export default class Properties extends React.Component {
 						);
 
 
-						params.push(<div key={script.params[p].name+"_"+script.id+"_"+p} className="panel panel-default">
-									  <div className="panel-heading">{script.params[p].name+" ("+list.length+")"}</div>
-									  <div className="panel-body">{elems}</div>
+						let tmpid = script.params[p].name+"_"+script.id+"_"+p;
+
+						params.push(<div key={tmpid} className="panel panel-default">
+									  		<div style={{cursor:"pointer"}}className="panel-heading insert collapsed" href={"#"+tmpid}  data-toggle="collapse" aria-expanded="true" aria-controls={tmpid}> {script.params[p].name+" ("+list.length+")"}</div>
+										  	<div className="collapse" id={tmpid}>
+												<div className="panel-body">{elems}</div>
+											</div>
 									</div>);
 					}
 					else if(script.params[p].type.trim().indexOf("array|folder")==0 || script.params[p].type.trim().indexOf("array|file")==0)
@@ -352,9 +368,13 @@ export default class Properties extends React.Component {
 						);
 
 
-						params.push(<div key={script.params[p].name+"_"+script.id+"_"+p} className="panel panel-default">
-									  <div className="panel-heading">{script.params[p].name+" ("+list.length+")"}</div>
-									  <div className="panel-body">{elems}</div>
+						let tmpid = script.params[p].name+"_"+script.id+"_"+p;
+
+						params.push(<div key={tmpid} className="panel panel-default">
+									  		<div style={{cursor:"pointer"}}className="panel-heading insert collapsed" href={"#"+tmpid}  data-toggle="collapse" aria-expanded="true" aria-controls={tmpid}> {script.params[p].name+" ("+list.length+")"}</div>
+										  	<div className="collapse" id={tmpid}>
+												<div className="panel-body">{elems}</div>
+											</div>
 									</div>);
 					}
 					else if(script.params[p].type.trim().indexOf("array|bool")==0)
@@ -386,10 +406,13 @@ export default class Properties extends React.Component {
 							</button>
 						);
 
+						let tmpid = script.params[p].name+"_"+script.id+"_"+p;
 
-						params.push(<div key={script.params[p].name+"_"+script.id+"_"+p} className="panel panel-default">
-									  <div className="panel-heading">{script.params[p].name+" ("+list.length+")"}</div>
-									  <div className="panel-body">{elems}</div>
+						params.push(<div key={tmpid} className="panel panel-default">
+									  		<div style={{cursor:"pointer"}}className="panel-heading insert collapsed" href={"#"+tmpid}  data-toggle="collapse" aria-expanded="true" aria-controls={tmpid}> {script.params[p].name+" ("+list.length+")"}</div>
+										  	<div className="collapse" id={tmpid}>
+												<div className="panel-body">{elems}</div>
+											</div>
 									</div>);
 					}
 					else
@@ -418,11 +441,14 @@ export default class Properties extends React.Component {
 									Add <span className="glyphicon glyphicon-plus"/>
 								</button>
 							);
+							
+							let tmpid = script.params[p].name+"_"+script.id+"_"+p;
 
-
-							params.push(<div key={script.params[p].name+"_"+script.id+"_"+p} className="panel panel-default">
-										  <div className="panel-heading">{script.params[p].name+" ("+list.length+")"}</div>
-										  <div className="panel-body">{elems}</div>
+							params.push(<div key={tmpid} className="panel panel-default">
+										  		<div style={{cursor:"pointer"}}className="panel-heading insert collapsed" href={"#"+tmpid}  data-toggle="collapse" aria-expanded="true" aria-controls={tmpid}> {script.params[p].name+" ("+list.length+")"}</div>
+											  	<div className="collapse" id={tmpid}>
+													<div className="panel-body">{elems}</div>
+												</div>
 										</div>);
 						}
 						else
@@ -614,7 +640,12 @@ export default class Properties extends React.Component {
 			}
 
 			if(data[index][1]!="scripts")
-				cols.push(<span className="input-group-addon input-group-small input-group-addon-small" key={counter+"_0"}>{data[index][0]}:</span>);
+			{
+				if(data[index][1]=="bool")
+					cols.push(<span className="input-group-addon input-group-small input-group-addon-small no_b_right" key={counter+"_0"}>{data[index][0]}:</span>);
+				else
+					cols.push(<span className="input-group-addon input-group-small input-group-addon-small" key={counter+"_0"}>{data[index][0]}:</span>);
+			}
 			else
 			{
 				cols.push(<span className="" key={counter+"_0"}>scripts:</span>);

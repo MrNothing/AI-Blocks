@@ -11,6 +11,8 @@ a = 1
 #endzone
 
 def Run(self, x):
+	Log(self.function)
+
 	if self.function=="sigmoid":
 		return tf.nn.sigmoid(x)
 	elif self.function=="tanh":

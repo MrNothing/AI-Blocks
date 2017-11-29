@@ -1,6 +1,8 @@
 {
   "name": "aiblocs",
-  "version": "0.1.0",
+  "author": "Boris Musarais",
+  "version": "0.1.5",
+  "description": "A user friendly interface for creating Machine Learning models.",
   "private": true,
   "main": "src/main.js",
   "dependencies": {
@@ -8,7 +10,10 @@
     "babel-preset-react": "^6.3.13",
     "babel-register": "^6.3.13",
     "chart.js": "^2.7.0",
+    "cross-env": "^5.1.1",
+    "electron-google-analytics": "0.0.24",
     "express-open-in-editor": "^3.1.1",
+    "flow": "^0.2.3",
     "jquery": "^3.2.1",
     "load-json-file": "^3.0.0",
     "open": "0.0.5",
@@ -19,20 +24,39 @@
     "react-scripts": "1.0.14",
     "react-treebeard": "^2.0.3",
     "react-treeview": "^0.4.7",
+    "showdown": "^1.8.2",
     "treeview-react-bootstrap": "^0.4.6",
+    "webpack": "^3.8.1",
     "webpack-target-electron-renderer": "^0.4.0"
   },
   "scripts": {
-    "run": "electron -r babel-register .",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+     "pack": "electron-builder --dir",
+     "pack-mac": "electron-builder --mac dir",
+     "test": "electron -r babel-register ."
   },
   "presets": [
     "env"
   ],
   "devDependencies": {
-    "electron-packager": "^9.1.0"
+    "electron-packager": "^9.1.0",
+    "electron-builder": "^19.46.9"
+  },
+  "build": {
+    "appId": "ai.blocks",
+    "mac": {
+      "category": "app.iablocks"
+    },
+    "files": [
+      "node_modules/",
+      "app.html",
+      "main.prod.js",
+      "main.prod.js.map",
+      "build_scripts/",
+      "examples/",
+      "scripts/",
+      "templates/",
+      "src/",
+      "package.json"
+    ]
   }
 }

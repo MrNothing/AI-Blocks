@@ -37,7 +37,7 @@ export default class ProjectBuilder{
 		
 			}	
 		}
-
+		
 		lines.push("")
 		lines.push("#binding instances:")
 

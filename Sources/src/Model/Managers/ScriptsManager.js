@@ -12,27 +12,34 @@ export default class ScriptsManager{
 
 		compileAllScripts()
 		{
-			let scriptFiles = this.getAllScripts("py", "", window.service.project.projectpath);
-			let scriptFiles2 = this.getAllScripts("py", "", "./scripts");
-
-			scriptFiles = scriptFiles.concat(scriptFiles2);
-
-			this.scripts = {};
-			for(let i in scriptFiles)
+			try
 			{
-				let scriptpath = scriptFiles[i];
-				let name = require('path').basename(scriptpath);
-				if(this.scripts[name]==undefined)
+				let scriptFiles = this.getAllScripts("py", "", window.service.project.projectpath);
+				let scriptFiles2 = this.getAllScripts("py", "", "./scripts");
+
+				scriptFiles = scriptFiles.concat(scriptFiles2);
+
+				this.scripts = {};
+				for(let i in scriptFiles)
 				{
-					let newScript = new Script(0, name);
-					newScript.fullpath = scriptpath;
-					newScript.loadParams(scriptpath);
-					this.scripts[name] = newScript;
+					let scriptpath = scriptFiles[i];
+					let name = require('path').basename(scriptpath);
+					if(this.scripts[name]==undefined)
+					{
+						let newScript = new Script(0, name);
+						newScript.fullpath = scriptpath;
+						newScript.loadParams(scriptpath);
+						this.scripts[name] = newScript;
+					}
+					else
+					{
+						window.service.log("Error: the script: "+name+" already exists!", "Duplicates: '"+scriptpath+"' and: '"+this.scripts[name].fullpath+"'", 2);
+					}
 				}
-				else
-				{
-					window.service.log("Error: the script: "+name+" already exists!", "Duplicates: '"+scriptpath+"' and: '"+this.scripts[name].fullpath+"'", 2);
-				}
+			}
+			catch(e)
+			{
+				alert("compileAllScripts error: "+e);
 			}
 		}
 
@@ -68,19 +75,19 @@ export default class ScriptsManager{
 		{
 			//let root = window.service.project.projectpath;
 			let found = [];
-			fs.readdirSync(root+"\\"+folder).forEach(file => {
-				if(isDirectory(root+"\\"+folder+"\\"+file))
+			fs.readdirSync(root+"/"+folder).forEach(file => {
+				if(isDirectory(root+"/"+folder+"/"+file))
 				{
-				  	let sub_files = this.findAllScriptsInFolders(ext, folder+"\\"+file, root);
+				  	let sub_files = this.findAllScriptsInFolders(ext, folder+"/"+file, root);
 
 					for(let sub in sub_files)
-						found.push(folder+"\\"+sub_files[sub]);
+						found.push(folder+"/"+sub_files[sub]);
 				}
 				else
 				{
 					if(file.split('.')[1]==ext)
 					{
-						found.push(folder+"\\"+file);
+						found.push(folder+"/"+file);
 					}
 				}
 			});
@@ -126,6 +133,14 @@ export default class ScriptsManager{
 							{
 								script.params.splice(p, 1);
 							}
+							else 
+							{
+								if(original_script.params[original_script.paramsIndex[param.name]].type.trim()!=param.type.trim())
+								{
+									param.type=original_script.params[original_script.paramsIndex[param.name]].type;
+									param.value=original_script.params[original_script.paramsIndex[param.name]].value;
+								}
+							}	
 						}
 						
 						for(let p in original_script.params)

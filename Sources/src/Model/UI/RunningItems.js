@@ -10,6 +10,13 @@ export default class RunningItems extends React.Component {
 	    window.service.runningUI = this;
 	}
 
+	componentDidCatch(error, info) {
+		// Display fallback UI
+		this.setState({ hasError: true });
+		// You can also log the error to an error reporting service
+		window.service.log(error, info, 2);
+	}
+
 	Run()
 	{
 		if(window.service.project!=null)
@@ -21,6 +28,7 @@ export default class RunningItems extends React.Component {
 			if(window.service.running==false)
 			{
 				window.service.running = true;
+				window.service.t0 = performance.now();
 				window.service.log("Building project: "+window.service.project.projectname, "", 1);
 				
 				for(let u in window.service.charts)
@@ -74,15 +82,15 @@ export default class RunningItems extends React.Component {
 
 	render() {
 		return (
-			<div class="btn-group">
-	        	<button type="button" class="btn btn-default btn-sm" onClick={this.Run.bind(this)}>
-		  			<span class="glyphicon glyphicon-play"></span>
+			<div className="btn-group">
+	        	<button type="button" className="btn btn-default btn-sm menubtn" onClick={this.Run.bind(this)}>
+		  			<span className="glyphicon glyphicon-play"></span>
 				</button>
-				<button type="button" class="btn btn-default btn-sm" onClick={this.Stop.bind(this)}>
-					<span class="glyphicon glyphicon-stop"></span>
+				<button type="button" className="btn btn-default btn-sm menubtn" onClick={this.Stop.bind(this)}>
+					<span className="glyphicon glyphicon-stop"></span>
 				</button>
-				<button type="button" class="btn btn-default btn-sm" disabled>
-					<span class="glyphicon glyphicon-pause"></span>
+				<button type="button" className="btn btn-default btn-sm menubtn" disabled>
+					<span className="glyphicon glyphicon-pause"></span>
 				</button>
 	        </div>
 		);

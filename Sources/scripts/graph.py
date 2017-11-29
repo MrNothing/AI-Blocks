@@ -20,3 +20,12 @@ def GetAllWeightsCount(self):
 			sum+=obj.total_weights
 
 	return sum
+
+def GetVariables(self):
+	variables = []
+	for i in range(len(self.model_elements)):
+		obj = self.model_elements[i]
+		if hasattr(obj, 'variables'):
+			variables+=obj.variables
+
+	return variables

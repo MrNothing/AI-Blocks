@@ -9,9 +9,19 @@ let win;
 
 function createWindow () {
 
-  // Create the browser window.
-  win = new BrowserWindow({fullscreen:false, icon:'src/images/PortableBoxAlpha2.png'});
+  let loadingWin = new BrowserWindow({
+      width: 150, 
+      height: 150, 
+      frame: false,
+      transparent: true
+  });
 
+  loadingWin.loadURL(path.join(__dirname, './loading.html'))
+  loadingWin.show();
+
+  // Create the browser window.
+  win = new BrowserWindow({fullscreen:false, icon:'src/images/PortableBoxAlpha2.png', show: false});
+  
   // and load the index.html of the app.
   win.loadURL(url.format({
     pathname: path.join(__dirname, './index.html'),
@@ -29,6 +39,13 @@ function createWindow () {
     // when you should delete the corresponding element.
     win = null
   })
+
+   win.once('ready-to-show', () => {
+       win.show()
+       win.maximize()
+       loadingWin.hide()
+       loadingWin.close()
+   })
 }
 
 // This method will be called when Electron has finished

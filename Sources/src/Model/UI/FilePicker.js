@@ -28,6 +28,13 @@ export default class FilePicker extends React.Component {
 		return scripts;
 	}
 
+	createScript()
+	{
+		window.service.createScriptUI.show(window.service.pickercallback);
+		$('#file-picker').modal("hide");
+		$('#script-creator').modal("show");
+	}
+
 	findAllScriptsInFolders(ext, folder, root)
 	{
 		//let root = window.service.project.projectpath;
@@ -91,8 +98,8 @@ export default class FilePicker extends React.Component {
 				{
 					title=window.service.scriptsManager.scripts[name].description;
 				}
-
-				output.push(<a href="#" onClick={this.validateSelection.bind(this, name)} className="list-group-item" title={title}><span className={this.getIcon(name)}/> {name}</a>);
+				if (name.indexOf(this.state.filter.trim())!=-1 || (this.state.filter.trim()+"").length==0)
+					output.push(<a href="#" onClick={this.validateSelection.bind(this, name)} className="list-group-item" title={title}><span className={this.getIcon(name)}/> {name}</a>);
 			}
 
 			return output;
@@ -143,14 +150,17 @@ export default class FilePicker extends React.Component {
 
 	render() {
 		let list;
+		let createB;
 
 		if(this.state.type==0)
 		{
 			list = this.findAndRenderTargets();
+			createB = (<a onClick={this.createScript.bind(this)} className="list-group-item list-group-item-success">Create new script <span className="glyphicon glyphicon-plus"/></a>);
 		}
 		else
 		{
 			list = this.findAndRenderObjects();
+			createB  = (<div/>)
 		}
 
 		return (
@@ -164,6 +174,7 @@ export default class FilePicker extends React.Component {
 				    </div>
 			  	</div>
 				<div className="list-group">
+					{createB}
 					{list}
 				</div> 
 			</div>
