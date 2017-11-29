@@ -35,5 +35,6 @@ The program is distributed under the following license: https://creativecommons.
 
 ### Donate 
 
-Help me maintain this project!
+Help me maintain this project :)
+
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=LGELJCRM28YNW&lc=FR&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
