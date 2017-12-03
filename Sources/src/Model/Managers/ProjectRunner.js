@@ -11,7 +11,7 @@ export default class ProjectRunner{
 		window.service.runningProcess = exec;
 		exec.stdout.on('data', (data) => {
 		  	let msgs = data.toString().split("\n");
-
+		  	
 		  	for (let i in msgs)
 		  	{
 		  		let msg = msgs[i];
@@ -31,6 +31,17 @@ export default class ProjectRunner{
 			  		for(let u in window.service.image_viewers)
 		  			{
 		  				window.service.image_viewers[u].setPath(path, target, name);
+		  			}
+			  	}
+			  	else if(msg.indexOf("audio_data,")==0)
+			  	{
+			  		let path = msg.split(",")[2].trim();
+			  		let target = msg.split(",")[1].trim();
+			  		let name = msg.split(",")[3].trim();
+			  		
+			  		for(let u in window.service.audio_viewers)
+		  			{
+		  				window.service.audio_viewers[u].setPath(path, target, name);
 		  			}
 			  	}
 			  	else if(msg.indexOf("chart:")==0)

@@ -13,6 +13,7 @@ export default class GlobalService
 		this.logs = [];
 	 	this.charts = {};
 	 	this.image_viewers = {};
+	 	this.audio_viewers = {};
 	 	this.loading = {properties:null, scene:null};
 	 	this.objectsByID = {};
   		this.objectsLinks = [];
@@ -91,7 +92,11 @@ export default class GlobalService
 	getUniqueID()
 	{
 		this.UID_Counter++;
-		return this.UID_Counter-1;
+
+		while (this.findObjectInScene(this.UID_Counter))
+			this.UID_Counter++;
+
+		return this.UID_Counter;
 	}
 
 	checkMaxID(id)
@@ -221,7 +226,8 @@ export default class GlobalService
 
     pasteSelection()
     {
-    	window.service.sceneUI.clearSelection();
+    	window.service.sceneUI.clearSelection(true);
+    	this.log(this.selectedObjects+"", "", 0);
 
     	let linksMap = {}
     	for(let i in this.copied_obj)

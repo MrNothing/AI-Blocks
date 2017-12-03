@@ -50,6 +50,13 @@ export default class InputService extends React.Component {
 			    if(window.service.selectedObject!=null)
 			    {
 			    	window.service.sceneUI.findAndDeleteRecursive(null);
+
+			    	for (let i in window.service.selectedObjects)
+			    	{
+			    		window.service.sceneUI.findAndDeleteRecursive2(null, window.service.selectedObjects[i]);
+			    	}
+
+			    	window.service.selectedObjects = {};
 			    }
 			    window.service.hierarchyUI.selectObject(null);
 			    window.service.hierarchyUI.forceUpdate();

@@ -46,16 +46,20 @@ export default class Hierarchy extends React.Component {
 					if(window.service.selectedObjects[objects[file].id] && window.service.selectedObjects[objects[file].id]!=undefined)
 						selected = " selected";
 
+					//elems.push(<div id={"hierarchy_anchor_"+objects[file].id} className="hierarchy_anchor" onMouseLeave={this.onMouseLeaveHandlerSep.bind(this)} onMouseEnter={this.onMouseEnterHandlerSep.bind(this, objects[file])}></div>)
+					
 					if(objects[file].children.length>0)
 					{
 						let children = this.renderRecursive(objects[file].children, false)
 
-						let label = <span onClick={this.selectObject.bind(this, objects[file], false)} className={"node"+selected}><span className={objects[file].getObjectIcon()}/> {objects[file].name}</span>;
+						let label = <span id={"hierarchy_obj_"+objects[file].id} onMouseDown={this.start_drag.bind(this, objects[file])} onMouseLeave={this.onMouseLeaveHandler.bind(this)} onMouseEnter={this.onMouseEnterHandler.bind(this, objects[file])} onClick={this.selectObject.bind(this, objects[file], false)} className={"node"+selected}><span className={objects[file].getObjectIcon()}/> 
+							{objects[file].name}
+						</span>;
 						elems.push(<TreeView className="node object" defaultCollapsed={true} nodeLabel={label}><div className="info">{children}</div></TreeView>);
 					}
 					else
 					{
-						elems.push(<div onClick={this.selectObject.bind(this, objects[file], false)} className={"info"+selected}><span className={objects[file].getObjectIcon()}/> {objects[file].name}</div>);
+						elems.push(<div id={"hierarchy_obj_"+objects[file].id} onMouseDown={this.start_drag.bind(this, objects[file])} onMouseLeave={this.onMouseLeaveHandler.bind(this, objects[file])} onMouseEnter={this.onMouseEnterHandler.bind(this, objects[file])} onClick={this.selectObject.bind(this, objects[file], false)} className={"info"+selected}><span className={objects[file].getObjectIcon()}/> {objects[file].name}</div>);
 					}
 				}
 			}
@@ -73,6 +77,23 @@ export default class Hierarchy extends React.Component {
   			return <label></label>;
   		}
 	}
+
+	onMouseEnterHandler(object) {
+        window.service.hoveredObject = object;
+    }
+
+    onMouseLeaveHandler(object) {
+    	if(window.service.hoveredObject==object)
+        	window.service.hoveredObject = null;
+    }
+
+    onMouseEnterHandlerSep(object) {
+        window.service.hoveredSeparatorObject = object;
+    }
+
+    onMouseLeaveHandlerSep() {
+        window.service.hoveredSeparatorObject = null;
+    }
 
 	selectObject(object, add)
 	{
@@ -149,7 +170,7 @@ export default class Hierarchy extends React.Component {
 
 	unselectObject(object)
 	{
-		window.service.actionsManager.insertunselectObjectAction(object.id);
+		window.service.actionsManager.insertUnselectObjectAction(object.id);
 
 		if(window.service.selectedObjects[object.id])
 		{
@@ -182,11 +203,26 @@ export default class Hierarchy extends React.Component {
 		}
 	}
 
+	start_drag(object)
+	{
+		window.service.draggedHierarchyObj = object
+
+    	document.getElementById("dragObj").class = window.service.draggedHierarchyObj.getObjectIcon();
+		window.service.draggingHierarchy = true;
+	}
+	
+	clearSelection()
+	{
+		window.service.sceneUI.clearSelection();
+	}
+
 	render() {
 		let ret = (
 		  	<div className="scrollable_container">
 		  		{this.renderRecursive(window.service.scene, true)}
-		  		<div className="bg-click" onClick={this.selectObject.bind(this, null)}/>
+		  		<div className="bg-click" onClick={this.clearSelection.bind(this)}/>
+		  		<span className="fa fa-cube" id="dragObj" style={{position:"absolute"}}/>
+		  		<span className="setParent" id="setParent" style={{position:"absolute"}}/>
 	  		</div>
 		);
   		

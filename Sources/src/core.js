@@ -160,6 +160,50 @@ window.onfocus = function() {
 window.onmove = function(e) {
   let delta = {x:window.service.mouse_pos.x-e.clientX, y:window.service.mouse_pos.y-e.clientY};
 
+  let setParent = document.getElementById("setParent");
+
+  if(window.service.draggingHierarchy && window.service.draggedHierarchyObj)
+  {
+    let dragObj = document.getElementById("dragObj");
+    dragObj.style.visibility = "visible";
+    dragObj.style.left = window.service.mouse_pos.x+"px";
+    dragObj.style.top = window.service.mouse_pos.y+"px";
+    document.body.style.cursor = 'none';
+    if(window.service.hoveredObject)
+    {
+      let rect1 = document.getElementById("hierarchy_obj_"+window.service.hoveredObject.id).getBoundingClientRect();
+      setParent.style.visibility = "visible";
+      setParent.style.top = rect1.top+"px";
+      setParent.style.left = rect1.left+"px";
+      setParent.style.width = (rect1.right-rect1.left)+"px";
+      setParent.style.height = "20px";
+
+      if (window.service.mouse_pos.y<rect1.top+5)
+      {
+         window.service.hoveredSeparatorObject = window.service.hoveredObject;
+         setParent.style.height = "5px";
+      }
+      else
+      {
+        window.service.hoveredSeparatorObject = null;
+      } 
+    }
+    else
+    {
+      setParent.style.visibility = "hidden";
+      window.service.hoveredSeparatorObject = null;
+    }
+  }
+  else
+  {
+    document.body.style.cursor = 'inherit';
+    if(document.getElementById("dragObj"))
+    {
+      document.getElementById("dragObj").style.visibility = "hidden";
+      setParent.style.visibility = "hidden";
+    }
+  }
+
   if(window.service.draggingWindow)
   {
     if(window.service.draggingWindow==1)
@@ -262,6 +306,7 @@ window.onmove = function(e) {
             if(isNaN(top))
               top=0;
 
+            already_dragged[children[i].id] = children[i];
             already_dragged[children[i].id].position.x = left;
             already_dragged[children[i].id].position.y = top;
 

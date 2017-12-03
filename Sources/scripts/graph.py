@@ -21,7 +21,7 @@ def GetAllWeightsCount(self):
 
 	return sum
 
-def GetVariables(self):
+def getVariables(self):
 	variables = []
 	for i in range(len(self.model_elements)):
 		obj = self.model_elements[i]

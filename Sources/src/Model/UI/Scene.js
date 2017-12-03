@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import ChartModule from './Modules/Chart'
 import ImageViewer from './Modules/ImageViewer'
+import AudioViewer from './modules/AudioViewer'
 
 export default class Scene extends React.Component {
 	constructor(props) {
@@ -133,6 +134,121 @@ export default class Scene extends React.Component {
 		}
 	}
 
+	findAndDeleteRecursive2(parent, target)
+	{
+		if(parent == null)
+		{
+			for (let i in window.service.scene)
+	    	{
+	    		if(window.service.scene[i].id==target.id)
+	    		{
+	    			window.service.scene.splice(i, 1);
+	    			break;
+	    		}
+	    		else
+	    		{
+	    			if(window.service.scene[i].children.length>0)
+		    		{
+		    			this.findAndDeleteRecursive2(window.service.scene[i], target)
+		    		}
+	    		}
+
+	    	}
+		}
+		else
+		{
+			for (let i in parent.children)
+	    	{
+	    		if(parent.children[i].id==target.id)
+	    		{
+	    			parent.children.splice(i, 1);
+	    			break;
+	    		}
+	    		else
+	    		{
+	    			if(parent.children[i].children.length>0)
+		    		{
+		    			this.findAndDeleteRecursive2(parent.children[i], target)
+		    		}
+	    		}
+	    	}
+		}
+	}
+
+	replaceObjects(obj1, obj2)
+	{
+		let container1 = this.findObjectContainerRecursive(null, obj1.id);
+		let container2 = this.findObjectContainerRecursive(null, obj2.id);
+
+		let index1 = container1.indexOf(obj1);
+		let index2 = container2.indexOf(obj2);
+
+		if(container1==container2)
+		{
+			container1[index1] = obj2;
+			container1[index2] = obj1;
+		}
+		else
+		{
+			container1.splice(index1, 1);
+			container2.splice(index2, 0, obj1);
+		}
+	}
+
+	findObjectContainerRecursive(parent, id)
+	{
+		let array = null;
+
+		if(parent == null)
+		{
+			for (let i in window.service.scene)
+	    	{
+	    		if(window.service.scene[i].id==id)
+	    		{
+	    			array = window.service.scene;
+	    			break;
+	    		}
+	    		else
+	    		{
+	    			if(window.service.scene[i].children.length>0)
+		    		{
+		    			let result = this.findObjectContainerRecursive(window.service.scene[i], id)
+		    			if(result!=null)
+		    			{
+		    				array = result;
+		    				break;
+		    			}
+		    		}
+	    		}
+	    	}
+		}
+		else
+		{
+			for (let i in parent.children)
+	    	{
+	    		if(parent.children[i].id==id)
+	    		{
+	    			array = parent.children;
+	    			break;
+	    		}
+	    		else
+	    		{
+	    			if(parent.children[i].children.length>0)
+		    		{
+		    			let result = this.findObjectContainerRecursive(parent.children[i], id)
+		    			if(result!=null)
+		    			{
+		    				array = result;
+		    				break;
+		    			}
+		    		}
+	    		}
+	    	}
+		}
+
+		return array;
+	}
+
 	renderObjectModules(object)
 	{
 		let modules = [];
@@ -160,6 +276,22 @@ export default class Scene extends React.Component {
 									width={object.scale.x}
 									height={object.scale.y}></ChartModule>;
 				modules.push(chart);
+			}
+			else if(object.scripts[i].source=="audio_player.py")
+			{
+				object.scripts[i].updateIndexParams();
+
+				let id = "img_viewer_"+object.id;
+				let filter = object.scripts[i].params[object.scripts[i].paramsIndex["filter"]].value;
+				let target = object.scripts[i].params[object.scripts[i].paramsIndex["_input"]].value;
+				let viewer = <AudioViewer 
+									key={id} 
+									id={id} 
+									target={target} 
+									filter={filter} 
+									width={object.scale.x}
+									height={object.scale.y}></AudioViewer>;
+				modules.push(viewer);
 			}
 			else if(object.scripts[i].source=="image_viewer.py")
 			{
@@ -345,11 +477,11 @@ export default class Scene extends React.Component {
 		return {scene: output, minimap: minimap_out};
 	}
 
-	clearSelection()
+	clearSelection(force)
 	{
 		window.service.actionsManager.insertClearSelectionAction();
 		
-		if(!window.service.ignoreNextClear)
+		if(!window.service.ignoreNextClear || force)
 		{
 			window.service.selectedObjects = {};
 			window.service.hierarchyUI.selectObject(null);
@@ -373,8 +505,35 @@ export default class Scene extends React.Component {
 
 	stop_drag()
 	{
+		if(window.service.draggedHierarchyObj)
+		{
+			if(window.service.hoveredSeparatorObject)
+			{	
+				this.replaceObjects(window.service.draggedHierarchyObj, window.service.hoveredSeparatorObject);
+			}
+			else if(window.service.hoveredObject)
+			{
+				if(window.service.hoveredObject.id!=window.service.draggedHierarchyObj.id)
+		      	{	
+		      		window.service.sceneUI.findAndDeleteRecursive2(null, window.service.draggedHierarchyObj);
+			        window.service.hoveredObject.children.push(window.service.draggedHierarchyObj);
+		      	}
+			}
+			else
+			{
+				
+				window.service.sceneUI.findAndDeleteRecursive2(null, window.service.draggedHierarchyObj);
+	    	    window.service.scene.push(window.service.draggedHierarchyObj);
+			}
+	        
+	        window.service.hierarchyUI.forceUpdate();
+	        window.service.sceneUI.forceUpdate();
+		}
+
 		window.service.dragging = false;
 		window.service.draggingWindow = false;
+		window.service.draggingHierarchy = false;
+		window.service.draggedHierarchyObj = null;
         document.getElementById("selection_rect").style.display = "none";
 	}
 

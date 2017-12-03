@@ -84,8 +84,6 @@ def Run(self):
 
 			if self.preview=="Image":
 				SendImageData(self.id, imagined, self._input.image_size[0], self._input.image_size[1], "1")
-			elif self.preview=="Sound":
-				pass
 			else:
 				pass
 

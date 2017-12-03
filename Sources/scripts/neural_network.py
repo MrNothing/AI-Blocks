@@ -9,6 +9,9 @@ use_name = False
 #param array|eval
 hidden_units = [1024, 256, 10]
 
+#param bool
+use_relu = True
+
 self.type = "feedforward"
 self.name = self.name.replace(" ", "_")
 self.init()
@@ -41,7 +44,7 @@ def Run(self, h, reuse=False):
 		W=self.variables[i*2]
 		b=self.variables[i*2+1]
 		h = tf.matmul(h, W) + b
-		if i<len(self.variables)/2-1:
+		if i<len(self.variables)/2-1 and self.use_relu:
 			Log("relu on")
 			h = tf.nn.relu(h)
 		else:

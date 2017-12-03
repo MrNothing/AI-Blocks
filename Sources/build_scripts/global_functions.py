@@ -4,6 +4,8 @@ import tempfile
 import numpy as np
 import os
 import matplotlib.pyplot as plt
+import pickle
+import soundfile as sf
 
 #Built with AIBlocks
 #https://github.com/MrNothing/AI-Blocks
@@ -62,6 +64,13 @@ def SendImageData(id, data, width=32, height=32, name="", rgba=False, flush=True
 		
 		Log("img_data,"+str(id)+","+imgPath+","+name, flush)
 
+def SendAudioData(id, data, name, samplerate=4410, offset=0):
+	tmpDir = tempfile.gettempdir()
+	imgPath = str(tmpDir)+"/"+name+"_out_"+str(id)+"_"+str(offset)+".wav"
+		
+	sf.write(imgPath, data, samplerate)
+	Log("audio_data,"+str(id)+","+imgPath+","+name, True)
+
 def SendGraph(id, data, data2=None, name="", offset=0, flush=True):
 	plt.plot(data)
 
@@ -76,6 +85,29 @@ def SendGraph(id, data, data2=None, name="", offset=0, flush=True):
 	plt.close()
 	Log("img_data,"+str(id)+","+imgPath+","+name, flush)
 
+class IOHelpers:
+	def save_output(data, cache_file):
+		with open(cache_file, 'wb') as f:
+			pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
+			Log("data saved in file: "+cache_file)
+		
+	def load_output(cache_file):		
+		if os.path.exists(cache_file):
+			with open(cache_file, 'rb') as f:
+				data = pickle.load(f)
+				Log("data loaded from file: "+cache_file)
+				return data
+		else:
+			LogErr("file was not found: "+cache_file)
+			return None
+
+	def SaveAudioFile(id, data, name, samplerate=4410, offset=0):
+		tmpDir = tempfile.gettempdir()
+		imgPath = str(tmpDir)+"/"+name+"_out_"+str(id)+"_"+str(offset)+".wav"
+			
+		sf.write(imgPath, data, samplerate)
+
+	
 
 class TFInstance:
 	def __init__(self, session, saver, save_path):
