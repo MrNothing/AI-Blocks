@@ -42,6 +42,7 @@ export default class RunningItems extends React.Component {
 				{
 					window.service.logs = [];
 					let runner = new ProjectRunner(tmpDir)
+					window.service.builder = builder;
 				}
 				else
 				{

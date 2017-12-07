@@ -94,8 +94,23 @@ setInterval(loop, 33)
 let desiredZoom = 0.75;
 let realX = 0;
 let realY = 0;
+
+let dcounter = 0;
+
+//main loop
 function loop()
 {
+  if(window.service.builder && window.service.enabledDynamicVars)
+  {
+    if(dcounter>10)
+    {
+       window.service.builder.updateDynamicVariables();
+       dcounter=0;
+    }  
+    else
+      dcounter++;
+  }
+   
   window.service.zoom = lerp(window.service.zoom, desiredZoom, 0.1);
   if(document.getElementById("scene_draggable"))
   {

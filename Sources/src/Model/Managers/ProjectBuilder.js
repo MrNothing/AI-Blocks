@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path');
+const os = require('os');
 
 export default class ProjectBuilder{
 	constructor(folder) {
@@ -12,6 +13,8 @@ export default class ProjectBuilder{
 
 	BuildProject(silent)
 	{
+		window.service.enabledDynamicVars = false;
+
 		let data = fs.readFileSync("build_scripts/global_functions.py");
 	    let lines = [];
 
@@ -20,19 +23,28 @@ export default class ProjectBuilder{
 	    else
 	    	lines.push("EDITOR_MODE=True");
 
+	    let tmpdir = os.tmpdir();
+	    lines.push("_aiblocks_default_tmp_folder = '"+tmpdir.split("\\").join("\\\\")+"'")
+
 	    lines = lines.concat(data.toString().split("\n"));
+
+	    let scripts_prebuild = fs.readFileSync("build_scripts/scripts_init.py");
 
 		for(let o in window.service.objectsByID)
 		{
 			if(window.service.objectsByID[o].scripts.length>0 && window.service.objectsByID[o].scene==window.service.currentScene && window.service.objectsByID[o].enabled=="True")
 			{
 				let newLines = this.buildScript(window.service.objectsByID[o].scripts[0], window.service.objectsByID[o].id);
+
 				lines.push("class object_"+window.service.objectsByID[o].id+":")
 				lines.push("	def __init__(self):")
 				lines.push("		self.id = '"+window.service.objectsByID[o].id+"'");
 				lines.push("		self.name = '"+window.service.objectsByID[o].name+"'");
-				lines = lines.concat(newLines);
+				lines.push("		self._aiblocks_vars_cache = {}");
 
+				lines = lines.concat(newLines);
+				lines = lines.concat(scripts_prebuild.toString().split("\n"));
+				
 				lines.push("instance_"+window.service.objectsByID[o].id+" = "+"object_"+window.service.objectsByID[o].id+"()");
 		
 			}	
@@ -111,6 +123,8 @@ export default class ProjectBuilder{
 					inRunFunc = true;
 				if(line.indexOf("MAIN=")!=-1)
 					this.main = [objID, line.split('=')[1].replace(/\s/g, '').replace("\n", '')];
+				if(line.indexOf("GetDynamicValue")!=-1)
+					window.service.enabledDynamicVars = true
 
 				if(next_is_param==true)
 		        {
@@ -257,5 +271,32 @@ export default class ProjectBuilder{
 		}
 
 		return connections;
+	}
+
+	updateDynamicVariables()
+	{
+		let tmpdir = os.tmpdir();
+
+		for(let o in window.service.objectsByID)
+		{
+			if(window.service.objectsByID[o].scripts.length>0 && window.service.objectsByID[o].scene==window.service.currentScene && window.service.objectsByID[o].enabled=="True")
+			{
+				let lines = [];
+				for (let i in window.service.objectsByID[o].scripts[0].params)
+				{
+					let param = window.service.objectsByID[o].scripts[0].params[i];
+
+					lines.push(param.name)
+					lines.push(param.type)
+					lines.push(param.value)
+				}
+				
+				fs.writeFile(tmpdir+"\\variables_"+window.service.objectsByID[o].id, lines.join('\n'), (err) => {
+		        if(err){
+			            window.service.log("An error ocurred creating the file ", err.message, 2);
+			        }
+				});
+			}	
+		}
 	}
 }

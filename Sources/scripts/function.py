@@ -10,7 +10,7 @@ function = "sigmoid"
 a = 1
 #endzone
 
-def Run(self, x):
+def Run(self, x, reuse=False):
 	Log(self.function)
 
 	if self.function=="sigmoid":

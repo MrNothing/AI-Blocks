@@ -216,6 +216,7 @@ export default class GlobalService
     	this.footerUI.forceUpdate();
     	this.runningUI.forceUpdate();
     	this.sceneUI.forceUpdate();
+    	window.service.builder = null;
     }
 
     copySelection()

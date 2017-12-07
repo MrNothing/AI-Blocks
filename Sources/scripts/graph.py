@@ -4,9 +4,9 @@
 #param array|object
 model_elements = []
 
-def Run(self, graph):
+def Run(self, graph, reuse=False):
 	for e in range(len(self.model_elements)):
-		graph = self.model_elements[e].Run(graph)
+		graph = self.model_elements[e].Run(graph, reuse=reuse)
 	return graph
 
 def GetChild(self, i):
@@ -29,3 +29,10 @@ def getVariables(self):
 			variables+=obj.variables
 
 	return variables
+
+def getInputSize(self):
+	if hasattr(model_elements[0], 'hidden_units'):
+		return model_elements[0].hidden_units[0]
+	else:
+		LogErr("No hidden units found in graph: "+str(self.id))
+		return None
