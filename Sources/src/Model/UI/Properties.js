@@ -246,11 +246,11 @@ export default class Properties extends React.Component {
 					}
 					else if(script.params[p].type.trim()=="folder" || script.params[p].type.trim()=="file")
 					{
-						
+						let domID = "script_input_"+p;
 						params.push(
 							<div key={script.params[p].name+"_"+script.id+"_"+p} className="input-group">
 						      <span className="input-group-addon input-group-small input-group-addon-small">{script.params[p].name}:</span>
-						      <input type="text" className="form-control" placeholder="Browse..." aria-label="Browse..." value={script.params[p].value}/>
+						      <input id={domID} onChange={this.updateScriptField.bind(this, script, p, domID, null)} type="text" className="form-control" placeholder="Browse..." aria-label="Browse..." value={script.params[p].value}/>
 						      <span className="input-group-btn">
 						        <button onClick={this.filePicker.bind(this, script, p, null, script.params[p].type.trim()=="file")} className="btn btn-secondary prop-button" type="button"><i className="fa fa-folder-open-o"></i></button>
 						      </span>
