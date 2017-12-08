@@ -109,14 +109,14 @@ export default class CreateProject extends React.Component {
 		if(this.state.already_exists)
 		{
 			validtxt = "invalid";
-			msg = (	<div class="invalid-feedback">
+			msg = (	<div className="invalid-feedback">
         				A script with this name already exists!
       				</div>);
 		}	
 		else if(this.state.scriptname.length==0)
 		{
 			validtxt = "invalid";
-			msg = (	<div class="invalid-feedback">
+			msg = (	<div className="invalid-feedback">
         				You must specify a script name!
       				</div>);
 		}	
@@ -129,14 +129,14 @@ export default class CreateProject extends React.Component {
 			<br/>
 			Templates: 
 		  	<div className="list-group">
-				<a className={"list-group-item "+this.isActive("empty_template.py")}  href="#" onClick={this.setTemplate.bind(this, "empty_template.py", "An empty python script", "fa fa-file-code-o", "Empty script")}><span class="fa fa-file-code-o"></span> Empty script</a>
-			    <a className={"list-group-item "+this.isActive("loader_template.py")} href="#" onClick={this.setTemplate.bind(this, "loader_template.py", "Create your own dataset loader.", "fa fa-sort-numeric-asc", "Data loader")}><span class="fa fa-sort-numeric-asc"></span> Data loader</a>
-			    <a className={"list-group-item "+this.isActive("classifier_template.py")} href="#" onClick={this.setTemplate.bind(this, "classifier_template.py", "Create your own trainer!", "fa fa-magic", "Classifier")}><span class="fa fa-magic"></span> Classifier</a>
-			    <a className={"list-group-item "+this.isActive("predictor_template.py")} href="#" onClick={this.setTemplate.bind(this, "predictor_template.py", "Use your trained model!", "fa fa-magic", "Predictor")}><span class="fa fa-magic"></span> Predictor</a>
+				<a className={"list-group-item "+this.isActive("empty_template.py")}  href="#" onClick={this.setTemplate.bind(this, "empty_template.py", "An empty python script", "fa fa-file-code-o", "Empty script")}><span className="fa fa-file-code-o"></span> Empty script</a>
+			    <a className={"list-group-item "+this.isActive("loader_template.py")} href="#" onClick={this.setTemplate.bind(this, "loader_template.py", "Create your own dataset loader.", "fa fa-sort-numeric-asc", "Data loader")}><span className="fa fa-sort-numeric-asc"></span> Data loader</a>
+			    <a className={"list-group-item "+this.isActive("classifier_template.py")} href="#" onClick={this.setTemplate.bind(this, "classifier_template.py", "Create your own trainer!", "fa fa-magic", "Classifier")}><span className="fa fa-magic"></span> Classifier</a>
+			    <a className={"list-group-item "+this.isActive("predictor_template.py")} href="#" onClick={this.setTemplate.bind(this, "predictor_template.py", "Use your trained model!", "fa fa-magic", "Predictor")}><span className="fa fa-magic"></span> Predictor</a>
 			</div> 
-		  	<div class="panel panel-default">
-			  <div class="panel-heading"><span class={this.state.icon}></span> {this.state.templatename}</div>
-			  <div class="panel-body" style={{padding: "7px", fontSize:"12px"}}>{this.state.template_desc}</div>
+		  	<div className="panel panel-default">
+			  <div className="panel-heading"><span className={this.state.icon}></span> {this.state.templatename}</div>
+			  <div className="panel-body" style={{padding: "7px", fontSize:"12px"}}>{this.state.template_desc}</div>
 			</div>
 		  	<div className="input-group">
 		      <input value={this.state.scriptpath} onChange={evt => this.updateScriptPath(evt)} onClick={this.selectScriptFolder.bind(this)} type="text" className="form-control" placeholder="Script folder..."/>

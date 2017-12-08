@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import ChartModule from './Modules/Chart'
 import ImageViewer from './Modules/ImageViewer'
-import AudioViewer from './modules/AudioViewer'
+import AudioViewer from './Modules/AudioViewer'
 
 export default class Scene extends React.Component {
 	constructor(props) {
