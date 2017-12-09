@@ -96,7 +96,8 @@ export default class Properties extends React.Component {
 	  				return this.renderDataGrid(window.service.selectedObject.toJsonDescriptor());
 	  			else
 	  			{
-	  				return <div>{Object.keys(window.service.selectedObjects).length+""} objects selected</div>;
+	  				return this.renderDataGrid(window.service.selectedObject.toJsonDescriptor(), true);
+	  				//<div>{Object.keys(window.service.selectedObjects).length+""} objects selected</div>;
 	  			}
   			}
   			else
@@ -544,6 +545,11 @@ export default class Properties extends React.Component {
   			if(window.service.selectedObject!=null)
   			{
 	  			//update selected object...
+	  			for (let i in window.service.selectedObjects)
+	  			{
+	  				window.service.selectedObjects[i][field] = newVal;
+	  			}
+
 	  			window.service.selectedObject[field] = newVal;
 	  			this.forceUpdate();
 				window.service.sceneUI.forceUpdate();
@@ -564,6 +570,12 @@ export default class Properties extends React.Component {
 		{
 			val = "True"
 		}
+
+		for (let i in window.service.selectedObjects)
+		{
+			window.service.selectedObjects[i][field] = val;
+		}
+
 		window.service.selectedObject[field] = val;
 		this.forceUpdate();
 		window.service.sceneUI.forceUpdate();
@@ -583,6 +595,7 @@ export default class Properties extends React.Component {
 			script.params[field].value = document.getElementById(domID).value;
 		}
 
+		window.service.updatedDynamicVars = true;
 		this.forceUpdate();
 	}
 
@@ -611,6 +624,7 @@ export default class Properties extends React.Component {
 			script.params[field].value = val;
 		}
 
+		window.service.updatedDynamicVars = true;
 		this.forceUpdate();
 	}
 
@@ -620,7 +634,7 @@ export default class Properties extends React.Component {
 		this.forceUpdate();
 	}
 
-	renderDataGrid(data)
+	renderDataGrid(data, multi)
 	{	
 		let counter = 0;
 		let rows = []
@@ -696,10 +710,14 @@ export default class Properties extends React.Component {
 			{
 				if(window.service.selectedObject.scripts.length>0)
 				{
-					cols.push(<div className="" key={counter+"_1"}>{this.renderScriptsPanel()}</div>);
+					if (multi)
+						cols.push(<div className="" key={counter+"_1"}>Multi edition is not avaliablefor scripts yet.</div>);
+					else
+						cols.push(<div className="" key={counter+"_1"}>{this.renderScriptsPanel()}</div>);
 				}
 				
-				cols.push(<a onClick={this.showFilePicker.bind(this, "py")} className="list-group-item list-group-item-action list-group-item-info">Add a script <span className="glyphicon glyphicon-plus"/></a>);
+				if (!multi)
+					cols.push(<a onClick={this.showFilePicker.bind(this, "py")} className="list-group-item list-group-item-action list-group-item-info">Add a script <span className="glyphicon glyphicon-plus"/></a>);
 				
 			}
 			else

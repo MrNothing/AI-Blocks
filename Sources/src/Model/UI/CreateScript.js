@@ -129,10 +129,10 @@ export default class CreateProject extends React.Component {
 			<br/>
 			Templates: 
 		  	<div className="list-group">
-				<a className={"list-group-item "+this.isActive("empty_template.py")}  href="#" onClick={this.setTemplate.bind(this, "empty_template.py", "An empty python script", "fa fa-file-code-o", "Empty script")}><span className="fa fa-file-code-o"></span> Empty script</a>
-			    <a className={"list-group-item "+this.isActive("loader_template.py")} href="#" onClick={this.setTemplate.bind(this, "loader_template.py", "Create your own dataset loader.", "fa fa-sort-numeric-asc", "Data loader")}><span className="fa fa-sort-numeric-asc"></span> Data loader</a>
-			    <a className={"list-group-item "+this.isActive("classifier_template.py")} href="#" onClick={this.setTemplate.bind(this, "classifier_template.py", "Create your own trainer!", "fa fa-magic", "Classifier")}><span className="fa fa-magic"></span> Classifier</a>
-			    <a className={"list-group-item "+this.isActive("predictor_template.py")} href="#" onClick={this.setTemplate.bind(this, "predictor_template.py", "Use your trained model!", "fa fa-magic", "Predictor")}><span className="fa fa-magic"></span> Predictor</a>
+				<a className={"list-group-item "+this.isActive("empty_template.py")}  href="#" onClick={this.setTemplate.bind(this, "empty_template.py", "An empty python script", "fa fa-file-code-o", "Empty script")}><span class="fa fa-file-code-o"></span> Empty script</a>
+			    <a className={"list-group-item "+this.isActive("loader_template.py")} href="#" onClick={this.setTemplate.bind(this, "loader_template.py", "Create your own dataset loader.", "fa fa-sort-numeric-asc", "Data loader")}><span class="fa fa-sort-numeric-asc"></span> Data loader</a>
+			    <a className={"list-group-item "+this.isActive("classifier_template.py")} href="#" onClick={this.setTemplate.bind(this, "classifier_template.py", "Create your own trainer!", "fa fa-magic", "Classifier")}><span class="fa fa-magic"></span> Classifier</a>
+			    <a className={"list-group-item "+this.isActive("predictor_template.py")} href="#" onClick={this.setTemplate.bind(this, "predictor_template.py", "Use your trained model!", "fa fa-magic", "Predictor")}><span class="fa fa-magic"></span> Predictor</a>
 			</div> 
 		  	<div className="panel panel-default">
 			  <div className="panel-heading"><span className={this.state.icon}></span> {this.state.templatename}</div>

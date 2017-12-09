@@ -21,10 +21,19 @@ export default class AudioViewer extends React.Component {
         }
     }
 
+    edit()
+    {
+        let fullpath = document.getElementById("audio_source_"+this.props.id).src;
+        var open = require("open");
+        open(fullpath);
+    }
+
     render() {
-        return (
-        <audio id={"audio_"+this.props.id} style={{width: "100%"}} className='media-object' controls>
-          <source id={"audio_source_"+this.props.id}/>
-        </audio>);
+        return (<div>
+            <audio id={"audio_"+this.props.id} style={{width: "100%"}} className='media-object' controls>
+              <source id={"audio_source_"+this.props.id}/>
+            </audio>
+            <span onClick={this.edit.bind(this)} className="glyphicon glyphicon-edit" style={{cursor:'pointer'}}></span> 
+        </div>);
     }
 }

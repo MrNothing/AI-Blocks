@@ -102,13 +102,11 @@ function loop()
 {
   if(window.service.builder && window.service.enabledDynamicVars)
   {
-    if(dcounter>10)
+    if(window.service.updatedDynamicVars)
     {
        window.service.builder.updateDynamicVariables();
-       dcounter=0;
+       window.service.updatedDynamicVars = false;
     }  
-    else
-      dcounter++;
   }
    
   window.service.zoom = lerp(window.service.zoom, desiredZoom, 0.1);
