@@ -3,12 +3,18 @@ import tensorflow as tf
 #description Activation functions: softmax, relu, tanh, sigmoid etc...
 #icon fa fa-flask
 
-#param list: sigmoid, tanh, softmax, relu, batchnorm, lrelu
+#param list: sigmoid, tanh, softmax, relu, batchnorm, lrelu, reshape
 function = "sigmoid"
 #zone function==lrelu
 #param float
 a = 1
 #endzone
+
+#zone function==reshape
+#param array|eval
+shape = [-1, 100]
+#endzone
+
 
 def Run(self, x, reuse=False):
 	Log(self.function)
@@ -23,6 +29,8 @@ def Run(self, x, reuse=False):
 		return self.batchnorm(x)
 	elif self.function=="lrelu":
 		return self.lrelu(x)
+	elif self.function=="reshape":
+		return tf.reshape(x, self.shape)
 	else:
 		return tf.nn.relu(x)
 

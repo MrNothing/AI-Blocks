@@ -24,6 +24,7 @@ export default class GlobalService
 		this.sceneReady = false;
 		this.hierarchyReady = false;
 	    this.running = false;
+		this.running_scene = 0;
 		
 		this.propertiesUI = null;
 		this.projectPropertiesUI = null;
@@ -217,6 +218,7 @@ export default class GlobalService
     	this.runningUI.forceUpdate();
     	this.sceneUI.forceUpdate();
     	window.service.builder = null;
+    	document.getElementById("activeTab_"+window.service.running_scene).className = "glyphicon glyphicon-picture";
     }
 
     copySelection()

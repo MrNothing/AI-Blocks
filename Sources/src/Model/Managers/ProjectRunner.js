@@ -4,8 +4,10 @@ const { spawn } = require('child_process');
 export default class ProjectRunner{
 	constructor(folder) {
 		this.folder = folder;
-		window.service.log("Running scene: "+window.service.currentScene, "", 0);
+		window.service.running_scene = window.service.currentScene;
+		window.service.log("Running scene: "+window.service.project.sceneNames[window.service.currentScene], "", 0);
 		window.service.consoleWindow.selectTab(1)
+		window.service.updatedDynamicVars = true;
 		
 		const exec = spawn('python', [folder+'/main.py']);
 		window.service.runningProcess = exec;

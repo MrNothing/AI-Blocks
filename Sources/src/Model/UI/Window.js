@@ -14,7 +14,7 @@ export default class Window extends React.Component {
 
 	editSceneName(sceneID)
 	{
-		this.setState({editing:true, sceneEdit:sceneID, newSceneName:window.service.project.sceneNames[sceneID-1]});
+		this.setState({editing:true, sceneEdit:sceneID, newSceneName:window.service.project.sceneNames[sceneID]});
 	}
 
 	updateNewSceneName(evt)
@@ -24,35 +24,70 @@ export default class Window extends React.Component {
 
 	saveNewName()
 	{
-		window.service.project.sceneNames[this.state.sceneEdit-1] = this.state.newSceneName;
+		window.service.project.sceneNames[this.state.sceneEdit] = this.state.newSceneName;
+		this.setState({editing:false, newSceneName:""});
+	}
+
+	addScene()
+	{
+		window.service.project.sceneNames.push("New Scene");
+		this.forceUpdate();
+	}
+
+	removeScene()
+	{
+		window.service.project.sceneNames.splice(this.state.activeTab, 1);
 		this.setState({editing:false, newSceneName:""});
 	}
 
   	renderTabs() {
   		let first = true;
   		let counter = 0;
-		const listItems = this.props.tabs.map((element) => {
+
+		if(this.props.scene_selector)
+		{
+			let listItems = [];
+
+	  		for (let i in window.service.project.sceneNames) {
+				let name = window.service.project.sceneNames[i];
+				let edit = (<span onClick={this.editSceneName.bind(this, counter)} className="glyphicon glyphicon-edit" style={{cursor:'pointer'}}></span>);
+
+				if (counter==this.state.activeTab)
+				{
+					listItems.push(<li key={counter} className="active"><a style={{"user-select":"none", background:this.props.color}}><span id={"activeTab_"+counter} className={"glyphicon glyphicon-"+this.props.icons[0]}></span> {name} {edit}</a></li>);
+				}
+				else
+				{
+					listItems.push(<li key={counter} className="inactivetab"><a className="inactivetabLink" style={{"user-select":"none"}} href="#" onClick={this.selectTab.bind(this, counter)}><span id={"activeTab_"+counter} className={"glyphicon glyphicon-"+this.props.icons[0]}></span> {name}</a></li>);
+				}
+				counter++;
+			}
+			
+			listItems.push(<li key={counter} className="inactivetab"><a className="inactivetabLink" style={{"user-select":"none"}} href="#" onClick={this.addScene.bind(this)}><span class="glyphicon glyphicon-plus"></span> Add Scene</a></li>)
+			return listItems;
+		}
+		else
+		{
+
+			const listItems = this.props.tabs.map((element) => {
 				counter++;
 
 				let name = element;
-				let edit = "";
-				if(this.props.scene_selector && window.service.project.sceneNames)
-				{
-					name = window.service.project.sceneNames[counter-1];
-					edit = (<span onClick={this.editSceneName.bind(this, counter)} className="glyphicon glyphicon-edit" style={{cursor:'pointer'}}></span>);
-				}
 
 				if (counter-1==this.state.activeTab)
 				{
-					return <li key={counter} className="active"><a style={{"user-select":"none", background:this.props.color}}><span className={"glyphicon glyphicon-"+this.props.icons[counter-1]}></span> {name} {edit}</a></li> ;
+					return <li key={counter} className="active"><a style={{"user-select":"none", background:this.props.color}}><span className={"glyphicon glyphicon-"+this.props.icons[counter-1]}></span> {name}</a></li> ;
 				}
 				else
 				{
 					return <li key={counter} className="inactivetab"><a className="inactivetabLink" style={{"user-select":"none"}} href="#" onClick={this.selectTab.bind(this, counter-1)}><span className={"glyphicon glyphicon-"+this.props.icons[counter-1]}></span> {name}</a></li>;
 				}
-		});
+			});
 
-    	return listItems;
+			return listItems;
+		}
+
+    	
 	}
 
 	getActiveChild() {
@@ -75,6 +110,7 @@ export default class Window extends React.Component {
 			window.service.sceneUI.update();
 			window.service.sceneUI.clearSelection();
 			window.service.hierarchyUI.forceUpdate();
+			this.setState({editing:false, newSceneName:""});
 	    }
 
 	    this.setState({
@@ -135,14 +171,18 @@ export default class Window extends React.Component {
 		}
 
 		let edit = "";
-
-		if(this.state.editing)
+		
+		if(this.state.editing)	
 		{
+			let left = document.getElementById("activeTab_"+window.service.currentScene).getBoundingClientRect().left-17;
 			edit =  (
-				<div className="input-group editSceneName">
+				<div className="input-group editSceneName" style={{left:left+"px"}}>
 				    <input type="text" className="form-control" value={this.state.newSceneName} placeholder="Scene Name" onChange={this.updateNewSceneName.bind(this)}/>
 				    <div className="input-group-btn">
-				      <button className="btn btn-default" type="submit" onClick={this.saveNewName.bind(this)} style={{height: "31px"}}>
+				      <button className="btn btn-default" type="submit" onClick={this.removeScene.bind(this)} style={{height: "31px"}}>
+				        <i className="fa fa-trash"></i>
+				      </button>
+				       <button className="btn btn-default" type="submit" onClick={this.saveNewName.bind(this)} style={{height: "31px"}}>
 				        <i className="fa fa-check"></i>
 				      </button>
 				    </div>

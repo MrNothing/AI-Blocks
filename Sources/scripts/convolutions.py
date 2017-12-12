@@ -1,28 +1,40 @@
-#description An onvolutional layer
+#description An 2D convolutional layer
 #icon fa fa-sitemap
-#param list:conv,deconv,
-type = "conv"
+#param list:conv2d,deconv2d,maxpool2d
+type = "conv2d"
+#zone type==conv2d
+#param array|int
+shape = [5, 5, 1, 32]
 #param int
-out_channels = 32
-#zone type==conv
-#param int
-stride = 2
+strides = 1
 #endzone
 
-def Run(batch_input):
-	out_channels = self.out_channels
-	stride = self.stride
+#zone type==maxpool2d
+#param int
+k = 2
+#endzone
 
-	if self.type=="conv":
-		with tf.variable_scope(self.name):
-			in_channels = batch_input.get_shape()[3]
-			filter = tf.get_variable("filter", [4, 4, in_channels, out_channels], dtype=tf.float32, initializer=tf.random_normal_initializer(0, 0.02))
-			# [batch, in_height, in_width, in_channels], [filter_width, filter_height, in_channels, out_channels]
-			#	 => [batch, out_height, out_width, out_channels]
-			padded_input = tf.pad(batch_input, [[0, 0], [1, 1], [1, 1], [0, 0]], mode="CONSTANT")
-			conv = tf.nn.conv2d(padded_input, filter, [1, stride, stride, 1], padding="VALID")
-			return conv
+self.variables = []
+
+def Run(self, batch_input, reuse=False):
+	
+	if self.type=="conv2d":
+		W = tf.Variable(tf.random_normal(self.shape))
+		b = tf.Variable(tf.random_normal([self.shape[3]]))
+
+		self.variables.append(W)
+		self.variables.append(b)
+		
+		x =  self.conv2d(batch_input, W, b, strides=self.strides, name=self.name)
+		Log(self.name+" "+str(x.get_shape()))
+		return x
+	elif self.type=="maxpool2d":
+		x = self.maxpool2d(batch_input, k=self.k, name=self.name)
+		Log(self.name+" "+str(x.get_shape()))
+		return x
 	else:
+		stride = self.strides
+		out_channels = self.out_channels
 		with tf.variable_scope(self.name):
 			batch, in_height, in_width, in_channels = [int(d) for d in batch_input.get_shape()]
 			filter = tf.get_variable("filter", [4, 4, out_channels, in_channels], dtype=tf.float32, initializer=tf.random_normal_initializer(0, 0.02))
@@ -30,3 +42,13 @@ def Run(batch_input):
 			#	 => [batch, out_height, out_width, out_channels]
 			conv = tf.nn.conv2d_transpose(batch_input, filter, [batch, in_height * 2, in_width * 2, out_channels], [1, 2, 2, 1], padding="SAME")
 			return conv
+
+def conv2d(self, x, W, b, strides=1, name=""):
+	# Conv2D wrapper, with bias and relu activation
+	x = tf.nn.conv2d(x, W, strides=[1, strides, strides, 1], padding='SAME', name=name)
+	x = tf.nn.bias_add(x, b)
+	return tf.nn.relu(x)
+
+def maxpool2d(self, x, k=2, name=""):
+	# MaxPool2D wrapper
+	return tf.nn.max_pool(x, ksize=[1, k, k, 1], strides=[1, k, k, 1], padding='SAME', name=name)

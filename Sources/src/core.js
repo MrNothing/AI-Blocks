@@ -86,7 +86,10 @@ window.onload = function(){
     <RunningItems/>,
     document.getElementById('running_items')
   );
-
+  var d = new Date();
+  let date = (d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+  var fs = require('fs');
+  fs.appendFileSync('errors_log.txt', "\nNew IA-Blocks session ("+date+"): \n");
 }
 
 setInterval(loop, 33)
@@ -96,10 +99,26 @@ let realX = 0;
 let realY = 0;
 
 let dcounter = 0;
+let hourglass_counter = 1;
 
 //main loop
 function loop()
 {
+  if(dcounter<=0 && window.service.running)
+  {
+    document.getElementById("activeTab_"+window.service.running_scene).className = "fa fa-hourglass-"+hourglass_counter;
+    dcounter = 15;
+    hourglass_counter+=1;
+    if(hourglass_counter>=4)
+    {
+      hourglass_counter = 1;
+    }
+  }
+  else
+  {
+    dcounter --;
+  }
+
   if(window.service.builder && window.service.enabledDynamicVars)
   {
     if(window.service.updatedDynamicVars)

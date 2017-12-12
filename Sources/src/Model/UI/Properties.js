@@ -148,6 +148,18 @@ export default class Properties extends React.Component {
 	filePicker(script, paramID, listIndex, isFile)
 	{
 		let selected_dir;
+
+		/*let defaultpath;
+		if(listIndex!=null)
+		{
+			let splitlist = script.params[paramID].value.split(";")
+			defaultpath = splitlist[listIndex];
+		}
+		else
+		{
+			defaultpath = script.params[paramID].value;	
+		}*/
+
 		if(isFile)
 			selected_dir = require('electron').remote.dialog.showOpenDialog({title:"Select a file...", properties: ['openFile']});
 		else
@@ -248,6 +260,7 @@ export default class Properties extends React.Component {
 					else if(script.params[p].type.trim()=="folder" || script.params[p].type.trim()=="file")
 					{
 						let domID = "script_input_"+p;
+
 						params.push(
 							<div key={script.params[p].name+"_"+script.id+"_"+p} className="input-group">
 						      <span className="input-group-addon input-group-small input-group-addon-small">{script.params[p].name}:</span>

@@ -39,7 +39,7 @@ def SendPieData(id, name, color='#3e95cd', flush=True):
 		Log("pie:"+str(id)+":"+str(name)+":"+str(color), flush)
 
 #data contains an array or normalized inputs (from 0 to 1)
-def SendImageData(id, data, width=32, height=32, name="", rgba=False, flush=True, invert=False, offset=0):
+def SendImageData(id, data, width=32, height=32, name="", rgba=False, flush=True, invert=False, offset=0, resize=[]):
 	if EDITOR_MODE:
 		img = Image.new( 'RGBA', (width,height), "white")
 		pixels = img.load()
@@ -57,6 +57,8 @@ def SendImageData(id, data, width=32, height=32, name="", rgba=False, flush=True
 			else:
 				pixels[x,y] = (int(pixel[0]*255), int(pixel[1]*255), int(pixel[2]*255), 255) # set the colour accordingly
 
+		if len(resize)>0:
+			img = img.resize((resize[0], resize[1]), Image.NEAREST)
 
 		tmpDir = tempfile.gettempdir()
 		imgPath = str(tmpDir)+"/"+name+"_out_"+str(id)+"_"+str(offset)+".png"
@@ -178,6 +180,27 @@ class IOHelpers:
 			IOHelpers.CarveDigit(pixels, str_num[i], x+loc_x, y, bg, color)
 			loc_x+=4
 
+	def CreateImage(data, width=32, height=32, rgba=False, invert=False, resize=[]):
+		img = Image.new( 'RGBA', (width,height), "white")
+		pixels = img.load()
+
+		for i in range(len(data)):	# for every pixel:
+			y = int(np.floor(i/width))
+			x = i-y*width
+			#print("coord: "+str(x)+"_"+str(y)+":"+str(data[i]))
+			if rgba:
+				pixel = max(0, data[i])
+			else:
+				pixel = [max(0, data[i]), max(0, data[i]), max(0, data[i]), 1]
+			if invert:
+				pixels[x,height-y-1] = (int(pixel[0]*255), int(pixel[1]*255), int(pixel[2]*255), 255) # set the colour accordingly
+			else:
+				pixels[x,y] = (int(pixel[0]*255), int(pixel[1]*255), int(pixel[2]*255), 255) # set the colour accordingly
+
+		if len(resize)>0:
+			img = img.resize((resize[0], resize[1]), Image.NEAREST)
+
+		return img
 	
 	def CarveDigit(pixels, digit, x, y, bg = (255, 255, 255, 255), color=(0, 0, 0, 255)):
 		#3x5 = 15pixels
@@ -732,7 +755,7 @@ class Math:
 		
 			return _sum/divider
 			
-	def entropy(data=[], ground=0.5, multiplier = 3):
+	def entropy(data=[], ground=0, multiplier = 3):
 		_sum = 0
 		_len = max(1, len(data))
 		for v in data:
@@ -775,7 +798,22 @@ class Math:
 			sample[i] = sample[i]/_max
 		return sample
 
+	def normalize2D(sample):
+		_max = 0
+		for m in sample:
+			for n in m:
+				if abs(n)>_max:
+					_max = abs(n)
+				
+		for i in range(len(sample)):
+			for j in range(len(sample[i])):
+				sample[i][j] = sample[i][j]/_max
+		return sample
+
 	def Spectrogram(samples, samplerate):
 		from scipy import signal
 		frequencies, times, spectogram = signal.spectrogram(samples, len(samples))
 		return spectogram
+
+	def Sigmoid(data):
+		pass

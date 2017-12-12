@@ -3,6 +3,14 @@
   <head>
 	<meta charset="UTF-8">
 	<title id="title">AI-Blocs</title> 
+	<script>
+	window.onerror = function errorHandler(errorMsg, url, lineNumber) {
+	    var fs = require('fs');
+	    fs.appendFileSync('errors_log.txt', errorMsg+"\n");
+	    fs.appendFileSync('errors_log.txt', url+" ");
+	    fs.appendFileSync('errors_log.txt', "At line: "+lineNumber+"\n");
+	}
+	</script>
 	<script>window.$ = window.jQuery = require('jquery');</script>
 	<script src="./libs/jquery-ui.js"></script>
 	<link rel="stylesheet" href="./Css/bootstrap.min.css">
