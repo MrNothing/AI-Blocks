@@ -316,6 +316,30 @@ export default class Properties extends React.Component {
 						    </div>
 						);
 					}
+					else if(script.params[p].type.trim().indexOf("range")==0)
+					{
+						let infos = script.params[p].type.trim().replace("range(", "").replace(")", "").split(',')
+						let domID = "script_input_"+p;
+						let min = Math.floor(infos[0]);
+						let max = Math.ceil(infos[1]);
+						let step = "any";
+
+						let val = Math.round(script.params[p].value*100)/100;
+
+						params.push((
+
+							<div key={script.params[p].name+"_"+script.id+"_"+p} className="input-group">
+							  <span className="input-group-addon input-group-small input-group-addon-small">{script.params[p].name}:</span>
+							  <input type="range" min={min} max={max} step={step} id={domID} onChange={this.updateScriptField.bind(this, script, p, domID, null)} className="slider" value={script.params[p].value}/>
+							  <span className="input-group-btn">
+							  	<button style={{width: "60px"}} className="btn btn-secondary prop-button">
+							  		<i> {val}</i>
+							  	</button>
+							  </span>
+						  	</div>
+
+					    ));
+					}
 					else if(script.params[p].type.trim().indexOf("array|object")==0)
 					{
 						let elems = [];

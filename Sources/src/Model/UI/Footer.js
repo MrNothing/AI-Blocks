@@ -26,9 +26,16 @@ export default class Footer extends React.Component {
 		maxstate = Math.max(maxstate, 1);
 		percent = (state/maxstate)*100;
 
-		let win = require('electron').remote.getCurrentWindow();
-		win.setProgressBar(state/maxstate);
-
+		try
+		{
+			let win = require('electron').remote.getCurrentWindow();
+			win.setProgressBar(state/maxstate);
+		}
+		catch(e)
+		{
+			console.log("Warning: Failed to get window remote object, state did not render on window.")
+		}
+		
 		this.setState({bar:percent});
 	}
 
