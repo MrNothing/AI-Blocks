@@ -57,5 +57,8 @@ def Run(self, h, reuse=False):
 def GetInputSize(self):
 	return self.hidden_units[0]
 
+def GetOutputSize(self):
+	return self.hidden_units[len(self.hidden_units)-1]
+
 def getVariables(self):
 	return self.variables

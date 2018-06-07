@@ -32,12 +32,12 @@ def Run(self):
 
 	correct_pred = tf.equal(tf.argmax(_y, 1), tf.argmax(self.y, 1))
 	_accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
-
+	
 	_solver = tf.train.AdamOptimizer(self.learning_rate).minimize(_loss)
-
+	
 	instance = AIBlocks.InitModel(load_path=self.save_path)
 	Log("Model initialized!")
-
+	
 	SetState(self.id, 0.001)
         
 	for it in range(self.training_iterations):

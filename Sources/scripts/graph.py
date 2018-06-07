@@ -36,3 +36,10 @@ def getInputSize(self):
 	else:
 		LogErr("No hidden units found in graph: "+str(self.id))
 		return None
+
+def GetOutputSize(self):
+	if hasattr(model_elements[len(model_elements)-1], 'hidden_units'):
+		return model_elements[len(model_elements)-1].hidden_units[len(model_elements[len(model_elements)-1].hidden_units)-1]
+	else:
+		LogErr("No hidden units found in graph: "+str(self.id))
+		return None
