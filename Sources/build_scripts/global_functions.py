@@ -6,6 +6,7 @@ import os
 import matplotlib.pyplot as plt
 import pickle
 import soundfile as sf
+from scipy import misc
 
 #Built with AIBlocks
 #https://github.com/MrNothing/AI-Blocks
@@ -49,7 +50,7 @@ def SendImageData(id, data, width=32, height=32, name="", rgba=False, flush=True
 			x = i-y*width
 			#print("coord: "+str(x)+"_"+str(y)+":"+str(data[i]))
 			if rgba:
-				pixel = max(0, data[i])
+				pixel = [max(0, data[i][0]), max(0, data[i][1]), max(0, data[i][2]), max(0, data[i][3])]
 			else:
 				pixel = [max(0, data[i]), max(0, data[i]), max(0, data[i]), 1]
 			if invert:
@@ -74,7 +75,7 @@ def SendAudioData(id, data, name, samplerate=4410, offset=0):
 		sf.write(imgPath, data, samplerate)
 		Log("audio_data,"+str(id)+","+imgPath+","+name, True)
 
-def SendGraph(id, data, data2=None, name="", offset=0, flush=True):
+def SendGraph(id, data, data2=None, name="", offset=0, flush=True, labels=[]):
 	if EDITOR_MODE:
 		plt.plot(data)
 
@@ -82,6 +83,9 @@ def SendGraph(id, data, data2=None, name="", offset=0, flush=True):
 			plt.plot(data2)
 
 		plt.title(name)
+
+		if len(labels)>0:
+			plt.legend(labels)
 
 		tmpDir = tempfile.gettempdir()
 		imgPath = str(tmpDir)+"/"+name+"_out_"+str(id)+"_"+str(offset)+".png"
@@ -104,6 +108,10 @@ def SendFastGraph(id, data, name="", offset=0, flush=True):
 
 		_max = Math.MaxValue(data)
 		_min = Math.MinValue(data)
+
+		if _max==_min:
+			_max+=100
+			_min-=100
 
 		#Log("_max: "+str(_max))
 
@@ -201,6 +209,11 @@ class IOHelpers:
 			img = img.resize((resize[0], resize[1]), Image.NEAREST)
 
 		return img
+
+	def LoadImage(path):
+		arr = misc.imread(path) # 640x480x3 array
+		return arr
+
 	
 	def CarveDigit(pixels, digit, x, y, bg = (255, 255, 255, 255), color=(0, 0, 0, 255)):
 		#3x5 = 15pixels
@@ -554,7 +567,7 @@ class TextHelper:
 			return '?'
 		else:
 			return ''
-
+		
 	def word2vec(self, word, charactersPerWord=10):
 		word = word.lower()
 		res = []
@@ -629,11 +642,11 @@ class Math:
 		return data[best_index]
 
 	def MinValue(data):
-		_max = 10000000
+		_min = 10000000
 		best_index = 0
 		for i in range(len(data)):
-			if(_max>data[i]):
-				_max = data[i]
+			if(_min>data[i]):
+				_min = data[i]
 				best_index = i
 		return data[best_index]
 
@@ -763,11 +776,11 @@ class Math:
 		return min(0.99, _sum/_len)
 		
 	def rangeFactor(t, point, _range):
-		ratio = np.abs (point - t) / _range;
+		ratio = np.abs (point - t) / _range
 		if ratio < 1:
-			return 1 - ratio;
+			return 1 - ratio
 		else:
-			return 0;
+			return 0
 			
 	def get_frequency(signal, zero_thresh=0.5, multiplier=1, auto_thresh=True, differential=False):
 		if differential:
@@ -790,13 +803,33 @@ class Math:
 			
 	def normalize(sample):
 		_max = 0
+		_min = np.Infinity
 		for m in sample:
-			if abs(m)>_max:
+			if m>_max:
 				_max = abs(m)
-				
-		for i in range(len(sample)):
-			sample[i] = sample[i]/_max
+			if m<_min:
+				_min = m
+
+		_max-=_min
+		
+		if _max>0:
+			for i in range(len(sample)):
+				sample[i] = (sample[i]-_min)/_max
+		
 		return sample
+
+	def get_normalized_bounds(sample):
+		_max = 0
+		_min = np.Infinity
+		for m in sample:
+			if m>_max:
+				_max = abs(m)
+			if m<_min:
+				_min = m
+
+		_max-=_min
+		
+		return _min, _max 
 
 	def normalize2D(sample):
 		_max = 0
@@ -815,5 +848,33 @@ class Math:
 		frequencies, times, spectogram = signal.spectrogram(samples, len(samples))
 		return spectogram
 
-	def Sigmoid(data):
-		pass
+	def Sigmoid(x):
+		return 1/(1+np.exp(-x))
+
+	def Abs(data):
+		if str(data.__class__())=="[]":
+			res = []
+			for i in range(len(data)):
+				res.append(abs(data[i]))
+
+			return res
+		else:
+			return abs(data)
+
+	def get_input(_input, index):
+	    if index<0:
+	        return 0
+	    elif index>len(_input)-1:
+	        return 0
+	    else:
+	        return _input[index]     
+
+	def gaussian_blur(_input, _range=3):
+	    output = []
+	    for i in range(len(_input)):
+	        avg = 0
+	        for k in range(-_range, _range):
+	            avg+=Math.get_input(_input, i+k)
+	        avg = avg/(_range*2)
+	        output.append(avg)
+	    return output
