@@ -25,15 +25,16 @@ To run your model simply press the "Play" button and let the magic happen!
 
 All releases can be found here: https://github.com/MrNothing/AI-Blocks/releases/
 
-### Build 
+### Build and Run
 
+First type:
+```npm install```
+  
 To run the project from the sources:
-  - npm install
-  - npm run test
+```npm run test```
   
 To build the project from the sources:
-  - npm install
-  - npm run pack
+```npm run pack```
 
 ### Documentation
 
