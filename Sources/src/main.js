@@ -20,7 +20,9 @@ function createWindow () {
   loadingWin.show();
 
   // Create the browser window.
-  win = new BrowserWindow({fullscreen:false, icon:'src/images/PortableBoxAlpha2.png', show: false});
+  win = new BrowserWindow({fullscreen:false, icon:'src/images/PortableBoxAlpha2.png', show: false,  webPreferences: {
+            nodeIntegration: true
+        }});
   
   // and load the index.html of the app.
   win.loadURL(url.format({
