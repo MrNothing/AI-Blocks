@@ -16,7 +16,7 @@ decay = 1e-6
 #param list:categorical_crossentropy
 loss = "categorical_crossentropy"
 #param array|string
-metrics = ['accuracy']
+metrics = ["accuracy"]
 
 def Run(self):
     model = Sequential()
@@ -30,6 +30,8 @@ def Run(self):
     model.compile(loss=self.loss,
                 optimizer=opt,
                 metrics=self.metrics)
+
+    self.instance = model
 
 def ParseInput(self, val):
     args = val.split(":")
