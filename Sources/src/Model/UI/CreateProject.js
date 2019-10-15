@@ -126,25 +126,31 @@ export default class CreateProject extends React.Component {
 
 	selectProjectFolder()
 	{
-		let selected_dir = require('electron').remote.dialog.showOpenDialog(require('electron').remote.getCurrentWindow(), {title:"Select a folder...", properties: ['openDirectory']});
-		if(selected_dir==null)
-		{
-			console.log("No dir selected");			
-		}
-		else
-		{
-			console.log(selected_dir[0]);
-			this.setState({
-		      projectpath: selected_dir[0]
-		    });
-		}
+		let selected_dir = require('electron').remote.dialog.showOpenDialog(require('electron').remote.getCurrentWindow(), {title:"Select a folder...", properties: ['openDirectory']})
+		.then(result => {	
+			if(!result.canceled)
+			{		
+				console.log(result.filePaths)
+				console.log(result.filePaths[0]);
+				this.setState({
+				  projectpath: result.filePaths[0]
+				});
+			}
+			else
+			{
+				console.log("No dir selected");	
+			}
+			console.log(result.canceled)
+		}).catch(err => {
+			console.log("No dir selected");	
+			console.log(err)
+		})
+
 	}
 
 	updateProjectName(evt)
 	{
-		this.setState({
-	      projectname: evt.target.value
-	    });
+		
 	}
 
 	updateProjectPath(evt)
