@@ -18,7 +18,7 @@
     "flow": "^0.2.3",
     "jquery": "^3.2.1",
     "load-json-file": "^3.0.0",
-    "open": "0.0.5",
+    "open": "6.0.0",
     "open-in-editor": "^2.2.0",
     "react": "^16.0.0",
     "react-bootstrap-treeview": "^0.1.0",
