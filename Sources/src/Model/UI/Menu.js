@@ -9,34 +9,41 @@ export default class Menu extends React.Component {
 	}
 
 	openProjectClicked(){
-		let selected_dir = require('electron').remote.dialog.showOpenDialog({title:"Select an AI-Bloc Project", properties: ['openFile', 'openDirectory']});
-		if(selected_dir==null)
-		{
-			window.service.log("Failed to load project: No directory selected", "", 2);			
-		}
-		else
-		{
-			window.service.loading = {properties:null, scene:null};
+		let selected_dir = require('electron').remote.dialog.showOpenDialog({title:"Select an AI-Bloc Project", properties: ['openFile', 'openDirectory']})
+		.then(result => {	
+			if(!result.canceled)
+			{		
+				console.log(result.filePaths[0]);
+				window.service.loading = {properties:null, scene:null};
 			
-			let loader = new JsonManager(null);
-			loader.load(selected_dir[0]+"/Properties.json").then(json => {
-				window.service.loading.properties = json;
-				window.service.loading.properties.projectpath = selected_dir[0];
-				window.service.checkLoadingComplete();
-			}).catch(err => {
-		   		alert("Failed to load project: "+err);
-				window.service.log("Failed to load project!", err+" "+err.stack, 2);
-			});
+				let loader = new JsonManager(null);
+				loader.load(selected_dir[0]+"/Properties.json").then(json => {
+					window.service.loading.properties = json;
+					window.service.loading.properties.projectpath = result.filePaths[0];
+					window.service.checkLoadingComplete();
+				}).catch(err => {
+					alert("Failed to load project: "+err);
+					window.service.log("Failed to load project!", err+" "+err.stack, 2);
+				});
 
-			let loader2 = new JsonManager(null);
-			loader2.load(selected_dir[0]+"/Scene.json").then(json => {
-				window.service.loading.scene = json;
-				window.service.checkLoadingComplete();
-			}).catch(err => {
-		   		alert("Failed to load project: "+err);
-				window.service.log("Failed to load project!", err+" "+err.stack, 2);		
-			});
-		}
+				let loader2 = new JsonManager(null);
+				loader2.load(selected_dir[0]+"/Scene.json").then(json => {
+					window.service.loading.scene = json;
+					window.service.checkLoadingComplete();
+				}).catch(err => {
+					alert("Failed to load project: "+err);
+					window.service.log("Failed to load project!", err+" "+err.stack, 2);		
+				});
+			}
+			else
+			{
+				window.service.log("Failed to load project: No directory selected", "", 2);			
+			}
+			console.log(result.canceled)
+		}).catch(err => {
+			window.service.log("Failed to load project: No directory selected", "", 2);			
+			console.log(err)
+		})
 	}
 
 	refresh(){

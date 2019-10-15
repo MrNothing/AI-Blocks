@@ -150,7 +150,9 @@ export default class CreateProject extends React.Component {
 
 	updateProjectName(evt)
 	{
-		
+		this.setState({
+			projectname: evt.target.value
+		});
 	}
 
 	updateProjectPath(evt)
