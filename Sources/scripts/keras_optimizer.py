@@ -14,6 +14,10 @@ epochs = 1000
 display_step = 5
 #param list:raw tensor,image,sound,
 _type = "raw tensor"
+#param folder
+save_path = ""
+#param file
+load_file = ""
 
 def Run(self):
     self.model.Run()
