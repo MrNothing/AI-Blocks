@@ -12,7 +12,7 @@ model = None
 epochs = 1000
 #param int
 display_step = 5
-#param list:raw tensor,image,sound
+#param list:raw tensor,image,sound,
 _type = "raw tensor"
 
 def Run(self):
@@ -36,8 +36,10 @@ def Run(self):
             if self._type=="image":
                 test_X = [X_batch[0]]
                 test_Y = [Y_batch[0]]
-                rebuilt_image = self.model.instance.predict(test_X)[0]
-                SendImageData(self.id, test_X[0][0:1024], self._input.image_width, self._input.image_width, "original")
+                rebuilt_image = self.model.instance.predict(np.asarray(test_X))
+                rebuilt_image = np.reshape(rebuilt_image, [1, 1024])[0]
+                test_X = np.reshape(X_batch[0], [1, 1024])[0].tolist()
+                SendImageData(self.id, test_X, self._input.image_width, self._input.image_width, "original")
                 SendImageData(self.id, test_Y[0], self._input.image_width, self._input.image_width, "depth")
                 SendImageData(self.id, rebuilt_image, self._input.image_width, self._input.image_width, "fake")
         
