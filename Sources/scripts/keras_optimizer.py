@@ -23,14 +23,16 @@ def Run(self):
 
         X_batch  = np.asarray(batch[0])
         Y_batch  = np.asarray(batch[1])
+        
+        X_batch = np.reshape(X_batch, [self._input.batch_size]+self.model.input_shape)
 
-        loss = self.model.instance.train_on_batch(X_batch, Y_batch)
+        infos = self.model.instance.train_on_batch(X_batch, Y_batch)
+        SetState(self.id, it/self.epochs)
 
 		#every N steps, send the state to the scene
         if it % self.display_step == 0:
-            SetState(self.id, it/self.training_iterations)
-            SendChartData(self.id, "Loss", loss, "#ff0000")
-
+            SendChartData(self.id, "Loss", infos[0], "#ff0000")
+            Log("Loss: "+str(infos[0]))
             if self._type=="image":
                 test_X = [X_batch[0]]
                 test_Y = [Y_batch[0]]

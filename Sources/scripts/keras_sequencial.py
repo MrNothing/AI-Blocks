@@ -49,6 +49,11 @@ def ParseInput(self, val, has_input=False):
         return Activation(args[1])
     elif typ=="Dropout":
         return Dropout(float(args[1]))
+    elif typ=="Input":
+        sh = []
+        for i in range(len(args)-1):
+            sh += int(args[i+1])
+        return Input(shape=sh)
     elif typ=="Flatten":
         return Flatten()
     elif typ=="MaxPooling2D":
