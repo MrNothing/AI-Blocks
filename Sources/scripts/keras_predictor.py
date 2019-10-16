@@ -1,3 +1,6 @@
+#description Keras Predictot script
+#icon fa fa-magic
+#MAIN=Run
 
 #param object
 _input = None
@@ -13,6 +16,8 @@ _type = "raw tensor"
 image_shape = [32, 32, 3]
 
 def Run(self):
+    self.model.Run()
+
     while(True):
         x = self._input.GetNextBatch()
         pred = self.model.instance.predict(x)
@@ -21,7 +26,7 @@ def Run(self):
             Log(pred[0])
         elif self._type == "image":
             SendImageData(self.id, pred, self.image_shape[0], self.image_shape[1], "preview")
-        elif self._type == "sound"
+        elif self._type == "sound":
             #todo: send sound data...
             pass
 

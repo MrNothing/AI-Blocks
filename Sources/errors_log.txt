@@ -8474,3 +8474,41 @@ Uncaught TypeError: Cannot read property 'stop_drag' of null
 file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
 Uncaught TypeError: Cannot read property 'stop_drag' of null
 file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+
+New IA-Blocks session (10/15/2019 16:2:47): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\Menu.js At line: 41
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\node_modules\react-dom\cjs\react-dom.development.js At line: 289
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\Menu.js At line: 41
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\node_modules\react-dom\cjs\react-dom.development.js At line: 289
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+
+New IA-Blocks session (10/15/2019 16:45:12): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\Menu.js At line: 41
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\node_modules\react-dom\cjs\react-dom.development.js At line: 289
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+
+New IA-Blocks session (10/15/2019 16:45:37): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+
+New IA-Blocks session (10/15/2019 16:47:15): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+
+New IA-Blocks session (10/16/2019 14:13:59): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
