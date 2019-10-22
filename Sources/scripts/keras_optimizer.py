@@ -1,4 +1,5 @@
 import numpy as np
+from keras.models import load_model
 
 #description Keras Classifier script
 #icon fa fa-magic
@@ -20,7 +21,11 @@ save_path = ""
 load_file = ""
 
 def Run(self):
-    self.model.Run()
+    if self.load_file!="":
+        _model = load_model(self.load_file)
+    else:
+        self.model.Run()
+        _model = self.model.instance
 
     for it in range(self.epochs):
         batch = self._input.getNextBatch()
@@ -28,9 +33,9 @@ def Run(self):
         X_batch  = np.asarray(batch[0])
         Y_batch  = np.asarray(batch[1])
         
-        X_batch = np.reshape(X_batch, [self._input.batch_size]+self.model.input_shape)
+        X_batch = np.reshape(X_batch, [self._input.batch_size] + self.model.input_shape)
 
-        infos = self.model.instance.train_on_batch(X_batch, Y_batch)
+        infos = _model.train_on_batch(X_batch, Y_batch)
         SetState(self.id, it/self.epochs)
 
 		#every N steps, send the state to the scene
@@ -40,10 +45,13 @@ def Run(self):
             if self._type=="image":
                 test_X = [X_batch[0]]
                 test_Y = [Y_batch[0]]
-                rebuilt_image = self.model.instance.predict(np.asarray(test_X))
+                rebuilt_image = _model.predict(np.asarray(test_X))
                 rebuilt_image = np.reshape(rebuilt_image, [1, 1024])[0]
                 test_X = np.reshape(X_batch[0], [1, 1024])[0].tolist()
                 SendImageData(self.id, test_X, self._input.image_width, self._input.image_width, "original")
                 SendImageData(self.id, test_Y[0], self._input.image_width, self._input.image_width, "depth")
                 SendImageData(self.id, rebuilt_image, self._input.image_width, self._input.image_width, "fake")
+        
+    if(self.save_path):
+        _model.save(self.save_path+'/model.h5')  # creates a HDF5 file 'my_model.h5'
         
