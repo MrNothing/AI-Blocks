@@ -1,5 +1,6 @@
 import numpy as np
 from keras.models import load_model
+from keras import backend as K
 
 #description Keras Classifier script
 #icon fa fa-magic
@@ -19,6 +20,8 @@ _type = "raw tensor"
 save_path = ""
 #param file
 load_file = ""
+#param float
+force_lr = -1
 
 def Run(self):
     if self.load_file!="":
@@ -34,6 +37,9 @@ def Run(self):
         Y_batch  = np.asarray(batch[1])
         
         X_batch = np.reshape(X_batch, [self._input.batch_size] + self.model.input_shape)
+        
+        if(self.force_lr>0):
+            K.set_value(_model.optimizer.lr, self.force_lr)  # set new lr
 
         infos = _model.train_on_batch(X_batch, Y_batch)
         SetState(self.id, it/self.epochs)

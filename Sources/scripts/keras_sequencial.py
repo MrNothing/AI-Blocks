@@ -19,6 +19,7 @@ loss = "mean_squared_error"
 #param array|string
 metrics = ["accuracy"]
 
+
 def Run(self):
     model = Sequential()
     for i in range(len(self.model)):

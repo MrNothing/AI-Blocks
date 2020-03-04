@@ -33,7 +33,7 @@ def Run(self):
         if self._type == "raw tensor":
             Log(pred)
         elif self._type == "image":
-            #SendImageData(self.id, _x[0], self.image_shape[0], self.image_shape[1], "original")
+            SendImageData(self.id, _x[0], self.image_shape[0], self.image_shape[1], "original", offset = 1)
             SendImageData(self.id, pred, self.image_shape[0], self.image_shape[1], "preview")
         elif self._type == "sound":
             #todo: send sound data...
