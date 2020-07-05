@@ -1,5 +1,6 @@
-AI-Blocs is being sponsored by the following tool; please help to support us by taking a look and signing up to a free trial
 [![ADD](https://images.gitads.io/AI-Blocks)](https://tracking.gitads.io/?repo=AI-Blocks)
+AI-Blocs is being sponsored by the following tool; please help to support us by taking a look and signing up to a free trial
+
 ---
 # ![AI-Blocks](logo.png)
 A powerful and intuitive WYSIWYG interface that allows anyone to create Machine Learning models!
