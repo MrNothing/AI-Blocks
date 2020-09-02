@@ -1,4 +1,3 @@
----
 # ![AI-Blocks](logo.png)
 A powerful and intuitive WYSIWYG interface that allows anyone to create Machine Learning models!
 
