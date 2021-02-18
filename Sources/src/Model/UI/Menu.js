@@ -9,34 +9,51 @@ export default class Menu extends React.Component {
 	}
 
 	openProjectClicked(){
-		let selected_dir = require('electron').remote.dialog.showOpenDialog({title:"Select an AI-Bloc Project", properties: ['openFile', 'openDirectory']});
-		if(selected_dir==null)
-		{
-			window.service.log("Failed to load project: No directory selected", "", 2);			
-		}
-		else
-		{
-			window.service.loading = {properties:null, scene:null};
-			
-			let loader = new JsonManager(null);
-			loader.load(selected_dir[0]+"/Properties.json").then(json => {
-				window.service.loading.properties = json;
-				window.service.loading.properties.projectpath = selected_dir[0];
-				window.service.checkLoadingComplete();
-			}).catch(err => {
-		   		alert("Failed to load project: "+err);
-				window.service.log("Failed to load project!", err+" "+err.stack, 2);
-			});
 
-			let loader2 = new JsonManager(null);
-			loader2.load(selected_dir[0]+"/Scene.json").then(json => {
-				window.service.loading.scene = json;
-				window.service.checkLoadingComplete();
-			}).catch(err => {
-		   		alert("Failed to load project: "+err);
-				window.service.log("Failed to load project!", err+" "+err.stack, 2);		
-			});
-		}
+		require('electron').remote.dialog.showOpenDialog(require('electron').remote.getCurrentWindow(), {title:"Select a folder...", properties: ['openDirectory']})
+		.then(result => {	
+			if(!result.canceled)
+			{
+				console.log(result.filePaths)
+
+				var selected_dir = result.filePaths;
+				if(selected_dir==null)
+				{
+					window.service.log("Failed to load project: No directory selected", "", 2);			
+				}
+				else
+				{
+					window.service.loading = {properties:null, scene:null};
+					
+					let loader = new JsonManager(null);
+					loader.load(selected_dir[0]+"/Properties.json").then(json => {
+						window.service.loading.properties = json;
+						window.service.loading.properties.projectpath = selected_dir[0];
+						window.service.checkLoadingComplete();
+					}).catch(err => {
+						alert("Failed to load project: "+err);
+						window.service.log("Failed to load project!", err+" "+err.stack, 2);
+					});
+
+					let loader2 = new JsonManager(null);
+					loader2.load(selected_dir[0]+"/Scene.json").then(json => {
+						window.service.loading.scene = json;
+						window.service.checkLoadingComplete();
+					}).catch(err => {
+						alert("Failed to load project: "+err);
+						window.service.log("Failed to load project!", err+" "+err.stack, 2);		
+					});
+				}
+			}
+			else
+			{
+				console.log("No dir selected");	
+			}
+			console.log(result.canceled)
+		}).catch(err => {
+			console.log("No dir selected");	
+			console.log(err)
+		})
 	}
 
 	refresh(){

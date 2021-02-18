@@ -515,8 +515,10 @@ class AIBlocks:
 		# Initializing the variables
 		init = tf.global_variables_initializer()
 
-		# 'Saver' op to save and restore all the variables
-		saver = tf.train.Saver()
+		saver = None
+		if len(load_path)>0:
+			# 'Saver' op to save and restore all the variables
+			saver = tf.train.Saver()
 
 		sess = tf.Session()
 		sess.run(init)

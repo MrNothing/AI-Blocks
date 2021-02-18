@@ -3,7 +3,7 @@ import tensorflow as tf
 #description Activation functions: softmax, relu, tanh, sigmoid etc...
 #icon fa fa-flask
 
-#param list: sigmoid, tanh, softmax, relu, batchnorm, lrelu, reshape
+#param list: sigmoid, tanh, softmax, relu, batchnorm, lrelu, reshape, cholesky, invert
 function = "sigmoid"
 #zone function==lrelu
 #param float
@@ -31,6 +31,10 @@ def Run(self, x, reuse=False):
 		return self.lrelu(x)
 	elif self.function=="reshape":
 		return tf.reshape(x, self.shape)
+	elif self.function=="cholesky":
+		return tf.linalg.cholesky(x)
+	elif self.function=="invert":
+		return tf.linalg.inv(x)
 	else:
 		return tf.nn.relu(x)
 

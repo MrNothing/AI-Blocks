@@ -1,0 +1,182 @@
+
+New IA-Blocks session (3/4/2020 11:3:19): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+
+New IA-Blocks session (3/9/2020 14:18:0): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+
+New IA-Blocks session (2/9/2021 10:12:32): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\CreateProject.js At line: 147
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\node_modules\react-dom\cjs\react-dom.development.js At line: 289
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\CreateProject.js At line: 147
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\node_modules\react-dom\cjs\react-dom.development.js At line: 289
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'then' of undefined
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\CreateProject.js At line: 147
+Uncaught TypeError: Cannot read property 'then' of undefined
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\node_modules\react-dom\cjs\react-dom.development.js At line: 289
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\CreateProject.js At line: 147
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\node_modules\react-dom\cjs\react-dom.development.js At line: 289
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'then' of undefined
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\CreateProject.js At line: 147
+Uncaught TypeError: Cannot read property 'then' of undefined
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\node_modules\react-dom\cjs\react-dom.development.js At line: 289
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'then' of undefined
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\CreateProject.js At line: 147
+Uncaught TypeError: Cannot read property 'then' of undefined
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\node_modules\react-dom\cjs\react-dom.development.js At line: 289
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'then' of undefined
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\CreateProject.js At line: 147
+Uncaught TypeError: Cannot read property 'then' of undefined
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\node_modules\react-dom\cjs\react-dom.development.js At line: 289
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+
+New IA-Blocks session (2/9/2021 10:32:5): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\CreateProject.js At line: 147
+Uncaught TypeError: require(...).remote.dialog.showOpenDialog(...).then is not a function
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\node_modules\react-dom\cjs\react-dom.development.js At line: 289
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+
+New IA-Blocks session (2/9/2021 10:32:55): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'indexOf' of null
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\Scene.js At line: 181
+
+New IA-Blocks session (2/9/2021 16:14:43): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+
+New IA-Blocks session (2/9/2021 16:19:45): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+
+New IA-Blocks session (2/9/2021 16:20:48): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+
+New IA-Blocks session (2/9/2021 16:21:14): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html# At line: 32
+Uncaught TypeError: Cannot read property 'indexOf' of null
+C:\Users\Admin\Documents\Personnel\AI-Blocks\Sources\src\Model\UI\Scene.js At line: 181
+
+New IA-Blocks session (2/16/2021 11:38:28): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+
+New IA-Blocks session (2/17/2021 17:52:47): 
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
+Uncaught TypeError: Cannot read property 'stop_drag' of null
+file:///C:/Users/Admin/Documents/Personnel/AI-Blocks/Sources/src/index.html At line: 32
