@@ -12,7 +12,7 @@
     "bower": "^1.8.4",
     "chart.js": "^2.7.0",
     "cross-env": "^5.1.1",
-    "electron": "^7.2.4",
+    "electron": "^15.5.5",
     "electron-google-analytics": "0.0.24",
     "express-open-in-editor": "^3.1.1",
     "flow": "^0.2.3",
